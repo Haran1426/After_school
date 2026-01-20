@@ -1,16 +1,26 @@
 using UnityEngine;
 
-public class GameManager : ManagerBase<GameManager>
+public class GameManager : ManagerBase<GameManager>, IManagerInitialize
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public bool IsGameOver { get; private set; }
+
+    protected override void Awake()
     {
-        
+        base.Awake();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Initialize()
     {
-        
+        IsGameOver = false;
+        Time.timeScale = 1f;
+    }
+
+    public void GameOver()
+    {
+        if (IsGameOver)
+            return;
+
+        IsGameOver = true;
+        Time.timeScale = 0f;
     }
 }

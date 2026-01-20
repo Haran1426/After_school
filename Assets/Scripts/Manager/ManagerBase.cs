@@ -1,5 +1,11 @@
 using UnityEngine;
 
+
+public interface IManagerInitialize
+{
+    void Initialize();
+}
+
 public abstract class ManagerBase<T> : MonoBehaviour where T : MonoBehaviour
 {
     public static T Instance { get; private set; }
