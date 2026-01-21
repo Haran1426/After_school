@@ -340,7 +340,7 @@ MonoBehaviour:
     chance: 50
   - prefab: {fileID: 7252274703895792601, guid: 9422702199f1a8549a86bc3d7d9e4a12, type: 3}
     chance: 50
-  maxSpawnCount: 262
+  maxSpawnCount: 500
   min: {x: -8, y: -4}
   max: {x: 8, y: 4}
 --- !u!1 &1825442311
@@ -559,7 +559,7 @@ Transform:
   m_GameObject: {fileID: 2135148477}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.07, y: -0.09, z: 0}
+  m_LocalPosition: {x: -5.61, y: -0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -658,5 +658,5 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 112526890}
-  - {fileID: 103814144}
   - {fileID: 2135148479}
+  - {fileID: 103814144}
