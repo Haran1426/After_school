@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WeaponBase : MonoBehaviour
+public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField] protected int level = 1;
     [SerializeField] protected int maxLevel = 8;
@@ -10,8 +10,6 @@ public class WeaponBase : MonoBehaviour
     public virtual void Init(Transform ownerTransform)
     {
         owner = ownerTransform;
-    
-    
     }
     public void LevelUp()
     {
