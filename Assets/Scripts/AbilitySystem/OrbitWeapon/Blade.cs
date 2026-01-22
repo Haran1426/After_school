@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Blade : MonoBehaviour
 {
@@ -6,8 +7,8 @@ public class Blade : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        EnemyHealth enemy = other.GetComponent<EnemyHealth>();
-        if (enemy != null)
-            enemy.TakeDamage(damage);
+        //EnemyHealth enemy = other.GetComponent<EnemyHealth>(); 데미지 추가 예정
+        //if (enemy != null)
+        //    enemy.TakeDamage(damage);
     }
 }

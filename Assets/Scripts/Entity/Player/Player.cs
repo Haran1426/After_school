@@ -11,10 +11,7 @@ public class Player : Entity
 
     void Move()
     {
-        Vector2 input = new Vector2(
-            Input.GetAxisRaw("Horizontal"),
-            Input.GetAxisRaw("Vertical")
-        );
+        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         transform.Translate(input.normalized * moveSpeed * Time.deltaTime);
     }

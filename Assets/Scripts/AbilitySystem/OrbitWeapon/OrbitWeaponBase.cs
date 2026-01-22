@@ -11,8 +11,11 @@ public abstract class OrbitWeaponBase : WeaponBase
 
     protected virtual void Update()
     {
+        if (owner == null)
+            return;
+
         transform.position = owner.position;
-        transform.Rotate(Vector3.up, rotateSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);
     }
 
     protected abstract Transform CreateWeapon();
@@ -29,11 +32,13 @@ public abstract class OrbitWeaponBase : WeaponBase
         for (int i = 0; i < weaponCount; i++)
         {
             float angle = angleStep * i;
-            Vector3 pos = Quaternion.Euler(0f, angle, 0f) * Vector3.forward * radius;
+            Vector3 dir = Quaternion.Euler(0f, 0f, angle) * Vector3.right;
+            Vector3 pos = dir * radius;
 
             Transform weapon = CreateWeapon();
             weapon.SetParent(transform);
             weapon.localPosition = pos;
+            weapon.localRotation = Quaternion.identity;
 
             weapons.Add(weapon);
         }

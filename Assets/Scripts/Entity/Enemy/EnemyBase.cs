@@ -3,6 +3,8 @@ using UnityEngine;
 public abstract class EnemyBase : Entity
 {
     public float moveSpeed = 2f;
+    public int expReward = 1;
+
     protected Transform player;
 
     protected override void Awake()
@@ -20,6 +22,14 @@ public abstract class EnemyBase : Entity
 
     protected override void Die()
     {
+        GiveExp();
         gameObject.SetActive(false);
+    }
+
+    private void GiveExp()
+    {
+        PlayerExp playerExp = player.GetComponent<PlayerExp>();
+        if (playerExp != null)
+            playerExp.AddExp(expReward);
     }
 }

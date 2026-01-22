@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class MagicAttackBase : WeaponBase
 {
+    [SerializeField] protected int weaponCount;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,5 +14,10 @@ public class MagicAttackBase : WeaponBase
     void Update()
     {
         
+    }
+
+    protected override void OnLevelUp()
+    {
+        weaponCount++;
     }
 }
