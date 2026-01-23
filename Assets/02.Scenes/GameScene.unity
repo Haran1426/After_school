@@ -899,7 +899,7 @@ MonoBehaviour:
     chance: 50
   - prefab: {fileID: 7252274703895792601, guid: 9422702199f1a8549a86bc3d7d9e4a12, type: 3}
     chance: 50
-  maxSpawnCount: 0
+  maxSpawnCount: 10
   min: {x: -8, y: -4}
   max: {x: 8, y: 4}
 --- !u!1 &1292828729
