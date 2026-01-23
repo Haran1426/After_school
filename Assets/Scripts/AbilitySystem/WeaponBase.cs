@@ -11,6 +11,7 @@ public abstract class WeaponBase : MonoBehaviour
     {
         owner = ownerTransform;
     }
+
     public void LevelUp()
     {
         if (level >= maxLevel)

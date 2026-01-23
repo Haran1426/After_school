@@ -1116,7 +1116,7 @@ MonoBehaviour:
   maxLevel: 8
   radius: 2.5
   rotateSpeed: 120
-  weaponCount: 2
+  weaponCount: 3
   bladePrefab: {fileID: 3265451754288868254, guid: d0e3f009e3f746c4b93d83ba7095c048, type: 3}
 --- !u!1 &1938433002
 GameObject:
@@ -1540,10 +1540,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 112526890}
   - {fileID: 2135148479}
-  - {fileID: 103814144}
   - {fileID: 1825442312}
   - {fileID: 2116778381}
   - {fileID: 1938433003}
   - {fileID: 979752870}
   - {fileID: 1043733350}
+  - {fileID: 103814144}
   - {fileID: 212325851}
