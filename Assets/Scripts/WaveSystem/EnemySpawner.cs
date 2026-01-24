@@ -73,9 +73,6 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector2 GetRandomPosition()
     {
-        return new Vector2(
-            Random.Range(min.x, max.x),
-            Random.Range(min.y, max.y)
-        );
+        return new Vector2(Random.Range(min.x, max.x), Random.Range(min.y, max.y));
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour
 {
-    [SerializeField] protected int level = 1;
+    [SerializeField] protected int level = 0;
     [SerializeField] protected int maxLevel = 8;
 
     protected Transform owner;
