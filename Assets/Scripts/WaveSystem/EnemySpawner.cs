@@ -1,78 +1,84 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 [System.Serializable]
-public class EnemySpawnData
+public class SpawnEntry
 {
-    [SerializeField] private GameObject prefab;
-    [SerializeField, Range(0f, 50f)] private float chance = 0f;
-
-    public float Weight { get; set; }
-    public GameObject Prefab => prefab;
-    public float Chance => chance;
+    public PoolType type;
+    public int weight = 1;
 }
-    
-public class EnemySpawner : MonoBehaviour
+
+public sealed class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private EnemySpawnData[] enemies;
+    [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private SpawnEntry[] enemies;
 
-    [SerializeField, Range(0, 5000)]
-    private int maxSpawnCount = 100;
+    [SerializeField] private float interval = 1f;
+    [SerializeField] private int spawnPerTick = 1;
+    [SerializeField] private int maxAlive = 50;
 
-    [SerializeField] private Vector2 min = new Vector2(-8f, -4f);
-    [SerializeField] private Vector2 max = new Vector2(8f, 4f);
-
-    private float accumulatedWeight;
+    private int alive;
+    private int weightSum;
 
     private void Awake()
     {
-        CalculateWeights();
+        for (int i = 0; i < enemies.Length; i++)
+            weightSum += Mathf.Max(0, enemies[i].weight);
     }
 
-    private IEnumerator Start()
+    private void OnEnable()
     {
-        int count = 0;
+        StartCoroutine(Loop());
+    }
 
-        while (count < maxSpawnCount)
+    private IEnumerator Loop()
+    {
+        var wait = new WaitForSeconds(interval);
+
+        while (true)
         {
-            SpawnEnemy(GetRandomPosition());
-            count++;
-            yield return new WaitForSeconds(0.01f);
+            for (int i = 0; i < spawnPerTick; i++)
+            {
+                if (alive >= maxAlive) break;
+                SpawnOne();
+            }
+
+            yield return wait;
+        }
+    }
+    private void SpawnOne()
+    {
+        var point = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        var type = PickType();
+
+        var go = PoolManager.Instance.Spawn(type, point.position, point.rotation);
+        if (go == null) return;
+
+        alive++;
+
+        var po = go.GetComponent<PooledObject>();
+        if (po != null)
+        {
+            go.GetComponent<EnemyLifeHook>()?.Bind(this);
         }
     }
 
-    private void CalculateWeights()
+    public void NotifyEnemyDead()
     {
-        accumulatedWeight = 0f;
-
-        foreach (var enemy in enemies)
-        {
-            accumulatedWeight += enemy.Chance;
-            enemy.Weight = accumulatedWeight;
-        }
+        alive = Mathf.Max(0, alive - 1);
     }
 
-    private void SpawnEnemy(Vector2 position)
+    private PoolType PickType()
     {
-        var enemyData = enemies[GetRandomIndex()];
-        Instantiate(enemyData.Prefab, position, Quaternion.identity);
-    }
-
-    private int GetRandomIndex()
-    {
-        float random = Random.value * accumulatedWeight;
+        int r = Random.Range(0, weightSum);
+        int acc = 0;
 
         for (int i = 0; i < enemies.Length; i++)
         {
-            if (enemies[i].Weight >= random)
-                return i;
+            acc += enemies[i].weight;
+            if (r < acc) return enemies[i].type;
         }
 
-        return 0;
-    }
-
-    private Vector2 GetRandomPosition()
-    {
-        return new Vector2(Random.Range(min.x, max.x), Random.Range(min.y, max.y));
+        return enemies[0].type;
     }
 }

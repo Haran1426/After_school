@@ -12,7 +12,7 @@ public class EnemyRanged : EnemyBase
 
     protected override void UpdateBehavior()
     {
-        float dist = Vector3.Distance(transform.position, player.position);
+        float dist = Vector2.Distance(transform.position, player.position);
 
         if (dist > attackRange)
         {
@@ -32,8 +32,12 @@ public class EnemyRanged : EnemyBase
 
     void Shoot()
     {
+        if (projectilePrefab == null || firePoint == null)
+            return;
+
         EnemyProjectile proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
-        Vector3 dir = player.position - firePoint.position;
+
+        Vector3 dir = (player.position - firePoint.position).normalized;
         proj.Fire(dir);
     }
 }

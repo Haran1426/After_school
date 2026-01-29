@@ -3,28 +3,46 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     public float speed = 6f;
-    public float damage = 5f;
+    public float damage = 1f;
+    public float lifeTime = 3f;
+    public float hitRadius = 0.3f;
 
-    Vector3 direction;
+    Vector3 dir;
+    float timer;
 
-    public void Fire(Vector3 dir)
+    public void Fire(Vector3 direction)
     {
-        direction = dir.normalized;
-        gameObject.SetActive(true);
+        dir = direction.normalized;
+        timer = 0f;
     }
 
     void Update()
     {
-        transform.position += direction * speed * Time.deltaTime;
+        transform.position += dir * speed * Time.deltaTime;
+
+        timer += Time.deltaTime;
+        if (timer >= lifeTime)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        CheckHitPlayer();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void CheckHitPlayer()
     {
-        Player player = other.GetComponent<Player>();
-        if (player != null)
-        {
-            player.TakeDamage(damage);
-            gameObject.SetActive(false);
-        }
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) return;
+
+        float dist = Vector2.Distance(transform.position, player.transform.position);
+        if (dist > hitRadius)
+            return;
+
+        var entity = player.GetComponent<Entity>();
+        if (entity != null)
+            entity.TakeDamage(damage);
+
+        Destroy(gameObject);
     }
 }
