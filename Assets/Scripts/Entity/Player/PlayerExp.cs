@@ -44,6 +44,6 @@ public class PlayerExp : MonoBehaviour
             expSlider.value = (float)currentExp / requiredExp;
 
         if (levelText != null)
-            levelText.text = "Level: " + level;
+            levelText.text = "Lv" + level;
     }
 }

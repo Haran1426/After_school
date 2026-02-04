@@ -20,6 +20,7 @@ public abstract class Entity : MonoBehaviour, IPoolable
 
     public virtual void OnDespawned()
     {
+
     }
 
     public virtual void TakeDamage(float damage)
