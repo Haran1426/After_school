@@ -29,8 +29,7 @@ public class Blade : MonoBehaviour
             if (dist > hitRadius + enemy.hitRadius)
                 continue;
 
-            if (hitTimer.TryGetValue(enemy, out float last) &&
-                time - last < hitCooldown)
+            if (hitTimer.TryGetValue(enemy, out float last) && time - last < hitCooldown)
                 continue;
 
             enemy.TakeDamage(damage);

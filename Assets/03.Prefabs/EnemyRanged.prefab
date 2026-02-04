@@ -93,8 +93,7 @@ MonoBehaviour:
   maxHp: 30
   currentHp: 0
   moveSpeed: 2
-  expReward: 1
-  hitRadius: 0.5
+  hitRadius: 0.4
   attackRange: 5
   fireInterval: 1.5
   projectilePrefab: {fileID: 9065802748056770002, guid: 2ae65539d7eedb84ab8f9fcd5b227fc1, type: 3}

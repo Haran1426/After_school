@@ -61,8 +61,7 @@ MonoBehaviour:
   maxHp: 30
   currentHp: 0
   moveSpeed: 2
-  expReward: 1
-  hitRadius: 0.5
+  hitRadius: 0.4
 --- !u!212 &1495478812965776668
 SpriteRenderer:
   m_ObjectHideFlags: 0
