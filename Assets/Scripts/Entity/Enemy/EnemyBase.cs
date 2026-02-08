@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class EnemyRegistry
@@ -10,6 +11,10 @@ public abstract class EnemyBase : Entity
 {
     public float moveSpeed = 2f;
     public float hitRadius = 0.5f;
+
+    [SerializeField] private PooledObject expOrbPool;
+
+    public int expReward = 1;
 
     protected Transform player;
 
@@ -66,11 +71,12 @@ public abstract class EnemyBase : Entity
         knockbackEndTime = Time.time + 0.1f;
         isKnockback = true;
     }
-
     protected override void Die()
     {
         if (IsDead) return;
         IsDead = true;
+
+        DropExp();
 
         EnemyRegistry.All.Remove(this);
         Blade.ClearHitCache(this);
@@ -78,6 +84,14 @@ public abstract class EnemyBase : Entity
         var po = GetComponent<PooledObject>();
         if (po != null) po.ReturnToPool();
         else gameObject.SetActive(false);
+    }
+    private void DropExp()
+    {
+        if (expOrbPool == null) return;
+
+        var po = expOrbPool.Spawn(transform.position, Quaternion.identity);
+        var orb = po.GetComponent<ExpOrb>();
+        orb.expValue = expReward;
     }
     public override void OnSpawned()
     {
