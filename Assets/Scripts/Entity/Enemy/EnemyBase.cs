@@ -12,9 +12,8 @@ public abstract class EnemyBase : Entity
     public float moveSpeed = 2f;
     public float hitRadius = 0.5f;
 
-    [SerializeField] private PooledObject expOrbPool;
-
-    public int expReward = 1;
+    [SerializeField] private PoolType expOrbType = PoolType.ExpOrb;
+    [SerializeField] private int expReward = 1;
 
     protected Transform player;
 
@@ -87,11 +86,13 @@ public abstract class EnemyBase : Entity
     }
     private void DropExp()
     {
-        if (expOrbPool == null) return;
+        var orbObj = PoolManager.Instance.Spawn(expOrbType, transform.position, Quaternion.identity);
 
-        var po = expOrbPool.Spawn(transform.position, Quaternion.identity);
-        var orb = po.GetComponent<ExpOrb>();
-        orb.expValue = expReward;
+        if (orbObj == null) return;
+
+        var orb = orbObj.GetComponent<ExpOrb>();
+        if (orb != null)
+            orb.expValue = expReward;
     }
     public override void OnSpawned()
     {

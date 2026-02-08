@@ -3,5 +3,6 @@ public enum PoolType
     EnemyMelee,
     EnemyRange,
     Bullet,
-    Effect
+    Effect,
+    ExpOrb
 }

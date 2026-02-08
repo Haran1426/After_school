@@ -29,11 +29,8 @@ public class ExpOrb : MonoBehaviour
         if (dist > absorbDistance)
             return;
 
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            player.position,
-            moveSpeed * Time.deltaTime
-        );
+        transform.position = Vector3.MoveTowards(transform.position, player.position, moveSpeed 
+            * Time.deltaTime);
 
         if (dist < 0.1f)
             Absorb();
@@ -44,7 +41,8 @@ public class ExpOrb : MonoBehaviour
         if (playerExp != null)
             playerExp.AddExp(expValue);
 
-        if (pooled != null) pooled.ReturnToPool();
+        var po = GetComponent<PooledObject>();
+        if (po != null) po.ReturnToPool();
         else gameObject.SetActive(false);
     }
 }
