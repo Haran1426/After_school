@@ -13,7 +13,8 @@ public enum PoolType
     EnemyRange,
     Bullet,
     Effect,
-    ExpOrb
+    ExpOrb,
+    Knife
 }
 
 public sealed class ObjectPool
