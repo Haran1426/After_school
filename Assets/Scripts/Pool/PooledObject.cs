@@ -7,6 +7,14 @@ public interface IPoolable
     void OnSpawned();
     void OnDespawned();
 }
+public enum PoolType
+{
+    EnemyMelee,
+    EnemyRange,
+    Bullet,
+    Effect,
+    ExpOrb
+}
 
 public sealed class ObjectPool
 {
