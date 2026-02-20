@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe01c6168bdec654c8fe830c48eaebd8, type: 3}
-  m_Name: Reward Data_4
+  m_Name: Reward Data_6
   m_EditorClassIdentifier: 
   rewardName: "\uC8FD\uC74C\uC758 \uCE7C\uB0A0"
-  description: "\uD68C\uC804\uD558\uB294 \uCE7C\uB0A0\uC744 \uD68D\uB4DD\uD569\uB2C8\uB2E4."
-  icon: {fileID: 21300000, guid: 4a16852d678d5b64b80525a0883ad378, type: 3}
+  description: "\uCE7C\uB0A0\uC744 \uD558\uB098 \uB354 \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  icon: {fileID: 21300000, guid: a111758a75f0222438acbbc5869e0cdd, type: 3}
   background: {fileID: 0}
-  value: 1
+  value: 5
