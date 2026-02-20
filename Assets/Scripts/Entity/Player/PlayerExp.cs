@@ -31,6 +31,7 @@ public class PlayerExp : MonoBehaviour
         currentExp -= requiredExp;
         level++;
         requiredExp = CalculateNextExp();
+        gameObject.SetActive(true);
     }
 
     private int CalculateNextExp()

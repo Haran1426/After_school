@@ -1584,7 +1584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &740981918
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1673,8 +1673,11 @@ MonoBehaviour:
   - {fileID: 1850813488}
   rewardPool:
   - {fileID: 11400000, guid: ceab3c58d5d355e47aaf3aba18a82b3b, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 9509ebe3a8e786b45b0bf14007c038ef, type: 2}
+  - {fileID: 11400000, guid: 90cb7a7278c7411458eb0f0f8991e697, type: 2}
+  - {fileID: 11400000, guid: d7ee145909ccafc46aea388f85f306c2, type: 2}
+  - {fileID: 11400000, guid: aa8ea9f63f4bb434cbb39a680f2e60cb, type: 2}
+  - {fileID: 11400000, guid: 40dc7544d95b3e945a63f8602e73faa3, type: 2}
 --- !u!1 &744488866
 GameObject:
   m_ObjectHideFlags: 0
@@ -3188,9 +3191,9 @@ RectTransform:
   - {fileID: 279862202}
   m_Father: {fileID: 1111107176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 640, y: -360}
   m_SizeDelta: {x: 280, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1606572228
@@ -3331,9 +3334,9 @@ RectTransform:
   - {fileID: 1819245445}
   m_Father: {fileID: 1111107176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 280, y: -360}
   m_SizeDelta: {x: 280, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1702374275
@@ -3791,9 +3794,9 @@ RectTransform:
   - {fileID: 2002169766}
   m_Father: {fileID: 1111107176}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1000, y: -360}
   m_SizeDelta: {x: 280, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1850813485
