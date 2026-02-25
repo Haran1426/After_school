@@ -6,33 +6,67 @@ public class LevelUpUI : MonoBehaviour
     [SerializeField] private List<RewardSlotUI> slots;
     [SerializeField] private List<RewardData> rewardPool;
 
+    private PlayerWeaponManager weaponManager;
+    private Player player;
+
+    private void Awake()
+    {
+        weaponManager = FindAnyObjectByType<PlayerWeaponManager>();
+        player = FindAnyObjectByType<Player>();
+    }
+
     public void Show()
     {
         gameObject.SetActive(true);
+        Time.timeScale = 0f;
 
-        List<RewardData> selected = GetRandomRewards(3);
+        var selected = GetRandomRewards(3);
 
         for (int i = 0; i < slots.Count; i++)
-        {
             slots[i].Setup(selected[i], OnRewardSelected);
-        }
-
-        Time.timeScale = 0f;
     }
 
     private void OnRewardSelected(RewardData data)
     {
-        Debug.Log(data.rewardName);
-
+        if (data.rewardType == RewardType.Weapon)
+        {
+            if (weaponManager != null && data.weaponPrefab != null)
+                weaponManager.AddOrUpgradeWeapon(data.weaponPrefab);
+        }
+        else if (data.rewardType == RewardType.Stat)
+        {
+            ApplyStatReward(data);
+        }
 
         Time.timeScale = 1f;
         gameObject.SetActive(false);
+    }
+
+    private void ApplyStatReward(RewardData data)
+    {
+        if (player == null) return;
+
+        switch (data.statRewardType)
+        {
+            case StatRewardType.AddMaxHp:
+                player.maxHp += data.value;
+                player.currentHp += data.value;
+                if (player.currentHp > player.maxHp) player.currentHp = player.maxHp;
+                break;
+
+            case StatRewardType.Heal:
+                player.currentHp += data.value;
+                if (player.currentHp > player.maxHp) player.currentHp = player.maxHp;
+                break;
+        }
     }
 
     private List<RewardData> GetRandomRewards(int count)
     {
         List<RewardData> copy = new List<RewardData>(rewardPool);
         List<RewardData> result = new List<RewardData>();
+
+        count = Mathf.Min(count, copy.Count);
 
         for (int i = 0; i < count; i++)
         {
