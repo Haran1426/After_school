@@ -16,4 +16,7 @@ MonoBehaviour:
   description: "\uD68C\uC804\uD558\uB294 \uCE7C\uB0A0\uC744 \uD68D\uB4DD\uD569\uB2C8\uB2E4."
   icon: {fileID: 21300000, guid: 4a16852d678d5b64b80525a0883ad378, type: 3}
   background: {fileID: 0}
+  rewardType: 1
   value: 1
+  statRewardType: 0
+  weaponPrefab: {fileID: 0}
