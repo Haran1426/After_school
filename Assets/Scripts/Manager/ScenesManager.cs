@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class ScenesManager : MonoBehaviour
+{
+    public void LoadRoom()
+    {
+        SceneManager.LoadScene("RoomScene");
+    }
+    public void LoadGame()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+    public void LoadCoice()
+    {
+        SceneManager.LoadScene("CoiceScene");
+    }
+
+    public void LoadTitle()
+    {
+        SceneManager.LoadScene("TitleScene");
+    }
+}
