@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public enum SceneId
 {
-    Title,
-    Lobby,
-    Game,
-    Result
+    TitleScene,
+    LobbyScene,
+    GameScene,
+    SelectScene
 }
 
 
