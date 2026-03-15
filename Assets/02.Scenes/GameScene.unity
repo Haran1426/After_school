@@ -4643,7 +4643,7 @@ MonoBehaviour:
   level: 1
   currentExp: 0
   requiredExp: 5
-  expSlider: {fileID: 664535568}
+  expBar: {fileID: 664535568}
   levelText: {fileID: 648983411}
 --- !u!114 &2135148484
 MonoBehaviour:

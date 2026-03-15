@@ -8,7 +8,7 @@ public class PlayerExp : MonoBehaviour
     public int currentExp = 0;
     public int requiredExp = 5;
 
-    [SerializeField] private Image expSlider;
+    [SerializeField] private Image expBar;
     [SerializeField] private TMP_Text levelText;
 
     private void Start()
@@ -41,8 +41,8 @@ public class PlayerExp : MonoBehaviour
 
     private void UpdateUI()
     {
-        if (expSlider != null)
-            expSlider.fillAmount = (float)currentExp / requiredExp;
+        if (expBar != null)
+            expBar.fillAmount = (float)currentExp / requiredExp;
 
         if (levelText != null)
             levelText.text = "Lv" + level;
