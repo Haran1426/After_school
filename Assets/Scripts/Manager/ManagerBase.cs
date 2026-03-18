@@ -5,23 +5,18 @@ public interface IManagerInitialize
 {
     void Initialize();
 }
-
-public abstract class ManagerBase<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class ManagerBase : MonoBehaviour, IManagerInitialize
 {
-    public static T Instance { get; private set; }
+    public bool IsInitialized { get; private set; }
 
-    protected virtual void Awake()
+    public void Initialize()
     {
-        #region ΩÃ±€≈Ê
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
+        if (IsInitialized)
             return;
-        }
 
-        Instance = this as T;
-        DontDestroyOnLoad(gameObject);
-        #endregion
+        OnInitialize();
+        IsInitialized = true;
     }
-}
 
+    protected abstract void OnInitialize();
+}
