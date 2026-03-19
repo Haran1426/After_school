@@ -9,17 +9,15 @@ public class PoolSetup
     public int prewarmCount = 10;
 }
 
-public sealed class PoolManager : ManagerBase<PoolManager>
+public sealed class PoolManager : ManagerBase
 {
     [SerializeField] private List<PoolSetup> setups = new();
 
     private readonly Dictionary<PoolType, ObjectPool> pools = new();
     private Transform root;
 
-    protected override void Awake()
+    protected override void OnInitialize()
     {
-        base.Awake();
-
         root = new GameObject("Pools").transform;
         root.SetParent(transform);
 

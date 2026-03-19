@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AudioManager : ManagerBase<AudioManager>
+public class AudioManager : ManagerBase
 {
     AudioSource bgmSource;
     AudioSource sfxSource;
@@ -8,10 +8,8 @@ public class AudioManager : ManagerBase<AudioManager>
     float bgmVolume = 1f;
     float sfxVolume = 1f;
 
-    protected override void Awake()
+    protected override void OnInitialize()
     {
-        base.Awake();
-
         bgmSource = gameObject.AddComponent<AudioSource>();
         sfxSource = gameObject.AddComponent<AudioSource>();
 

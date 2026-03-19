@@ -1,15 +1,10 @@
 using UnityEngine;
 
-public class GameManager : ManagerBase<GameManager>, IManagerInitialize
+public class GameManager : ManagerBase
 {
     public bool IsGameOver { get; private set; }
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
-    public void Initialize()
+    protected override void OnInitialize()
     {
         IsGameOver = false;
         Time.timeScale = 1f;
