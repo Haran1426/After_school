@@ -86,7 +86,7 @@ public abstract class EnemyBase : Entity
     }
     private void DropExp()
     {
-        var orbObj = PoolManager.Instance.Spawn(expOrbType, transform.position, Quaternion.identity);
+        var orbObj = GameRoot.Instance.Pool.Spawn(expOrbType, transform.position, Quaternion.identity);
 
         if (orbObj == null) return;
 

@@ -16,6 +16,6 @@ public class Player : Entity
     }
     protected override void Die()
     {
-        GameManager.Instance.GameOver();
+        GameRoot.Instance.Game.GameOver();
     }
 }

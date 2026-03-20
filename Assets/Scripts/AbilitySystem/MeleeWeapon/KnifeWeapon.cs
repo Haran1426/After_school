@@ -49,7 +49,7 @@ public class KnifeWeapon : WeaponBase
 
     void Fire(EnemyBase target)
     {
-        var go = PoolManager.Instance.Spawn(PoolType.Knife, owner.position, Quaternion.identity);
+        var go = GameRoot.Instance.Pool.Spawn(PoolType.Knife, owner.position, Quaternion.identity);
 
         if (go == null) return;
 
