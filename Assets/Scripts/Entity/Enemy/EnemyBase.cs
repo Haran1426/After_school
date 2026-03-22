@@ -56,6 +56,8 @@ public abstract class EnemyBase : Entity
 
         currentHp -= damage;
 
+        DamageTextSpawner.Instance.Spawn(damage, transform.position);
+
         if (currentHp <= 0f)
         {
             Die();
