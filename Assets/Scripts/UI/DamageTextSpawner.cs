@@ -9,7 +9,7 @@ public class DamageTextSpawner : MonoBehaviour
         Instance = this;
     }
 
-    public void Spawn(float damage, Vector3 position)
+    public void Spawn(float damage, Vector3 position) // 적이 맞았을 때 데미지 텍스트 생성
     {
         var obj = GameRoot.Instance.Pool.Spawn(
             PoolType.DamageText,
