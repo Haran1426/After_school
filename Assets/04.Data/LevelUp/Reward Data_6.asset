@@ -19,4 +19,4 @@ MonoBehaviour:
   rewardType: 1
   value: 1
   statRewardType: 0
-  weaponPrefab: {fileID: 0}
+  weaponPrefab: {fileID: 11400000, guid: b1c2d3e4f5a601b2c3d4e5f6b1c2d3e4, type: 3}

@@ -48,9 +48,14 @@ public sealed class EnemySpawner : MonoBehaviour
     }
     private void SpawnOne()
     {
+        if (spawnPoints == null || spawnPoints.Length == 0) return;
+
         var point = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        if (point == null) return;
+
         var type = PickType();
 
+        if (GameRoot.Instance == null || GameRoot.Instance.Pool == null) return;
         var go = GameRoot.Instance.Pool.Spawn(type, point.position, point.rotation);
         if (go == null) return;
 

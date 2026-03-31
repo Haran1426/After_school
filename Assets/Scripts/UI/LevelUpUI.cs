@@ -58,6 +58,10 @@ public class LevelUpUI : MonoBehaviour
                 player.currentHp += data.value;
                 if (player.currentHp > player.maxHp) player.currentHp = player.maxHp;
                 break;
+
+            case StatRewardType.Power:
+                player.power += data.value;
+                break;
         }
     }
 

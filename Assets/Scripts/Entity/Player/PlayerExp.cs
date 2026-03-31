@@ -10,6 +10,7 @@ public class PlayerExp : MonoBehaviour
 
     [SerializeField] private Image expBar;
     [SerializeField] private TMP_Text levelText;
+    [SerializeField] private LevelUpUI levelUpUI;
 
     private void Start()
     {
@@ -31,7 +32,7 @@ public class PlayerExp : MonoBehaviour
         currentExp -= requiredExp;
         level++;
         requiredExp = CalculateNextExp();
-        gameObject.SetActive(true);
+        levelUpUI?.Show();
     }
 
     private int CalculateNextExp()

@@ -409,6 +409,7 @@ Transform:
   m_Children:
   - {fileID: 1292471322}
   - {fileID: 1053736625}
+  - {fileID: 1859278241}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &112526887
@@ -1873,10 +1874,10 @@ MonoBehaviour:
   rewardPool:
   - {fileID: 11400000, guid: ceab3c58d5d355e47aaf3aba18a82b3b, type: 2}
   - {fileID: 11400000, guid: 9509ebe3a8e786b45b0bf14007c038ef, type: 2}
-  - {fileID: 11400000, guid: 90cb7a7278c7411458eb0f0f8991e697, type: 2}
   - {fileID: 11400000, guid: d7ee145909ccafc46aea388f85f306c2, type: 2}
   - {fileID: 11400000, guid: aa8ea9f63f4bb434cbb39a680f2e60cb, type: 2}
-  - {fileID: 11400000, guid: 40dc7544d95b3e945a63f8602e73faa3, type: 2}
+  - {fileID: 11400000, guid: d912d3780ebbe194da47597dc60ea880, type: 2}
+  - {fileID: 11400000, guid: 63dce001976ba3845adbbc1627e1621e, type: 2}
 --- !u!1 &744488866
 GameObject:
   m_ObjectHideFlags: 0
@@ -4591,6 +4592,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1859278240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1859278241}
+  - component: {fileID: 1859278242}
+  m_Layer: 0
+  m_Name: GameRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1859278241
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859278240}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 103814144}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1859278242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859278240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f738522875a842947bdec083719e3d00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 2116778382}
+  audioManager: {fileID: 1825442313}
+  poolManager: {fileID: 1067842275}
 --- !u!1 &1861326324
 GameObject:
   m_ObjectHideFlags: 0
@@ -5328,6 +5376,7 @@ MonoBehaviour:
   maxHp: 100
   currentHp: 0
   Hpbar: {fileID: 1142870518}
+  power: 1
 --- !u!114 &2135148483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5345,6 +5394,7 @@ MonoBehaviour:
   requiredExp: 5
   expBar: {fileID: 664535568}
   levelText: {fileID: 648983411}
+  levelUpUI: {fileID: 740981922}
 --- !u!114 &2135148484
 MonoBehaviour:
   m_ObjectHideFlags: 0

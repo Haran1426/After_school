@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find C:UsershaninAfter_schoolAssets03.Prefabs -name *.prefab)",
+      "Bash(find \"C:\\\\Users\\\\hanin\\\\After_school\\\\Assets\\\\Scripts\" -name \"*.cs\" -type f -exec wc -l {} +)",
+      "Bash(xargs grep:*)"
+    ]
+  }
+}
