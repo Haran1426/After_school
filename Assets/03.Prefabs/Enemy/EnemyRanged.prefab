@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 5221631267885456431}
   - component: {fileID: 3570959473748656752}
   - component: {fileID: 5224786420006747419}
+  - component: {fileID: 2074160145930340931}
   - component: {fileID: 6948942239984710112}
   m_Layer: 6
   m_Name: EnemyRanged
@@ -94,10 +95,24 @@ MonoBehaviour:
   currentHp: 0
   moveSpeed: 2
   hitRadius: 0.4
+  expOrbType: 4
+  expReward: 1
   attackRange: 5
   fireInterval: 1.5
   projectilePrefab: {fileID: 9065802748056770002, guid: 2ae65539d7eedb84ab8f9fcd5b227fc1, type: 3}
   firePoint: {fileID: 983198717554181083}
+--- !u!114 &2074160145930340931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252274703895792601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c902011678a7bd47846d137554d74aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &6948942239984710112
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -2,21 +2,17 @@ using UnityEngine;
 
 public class EnemyLifeHook : MonoBehaviour, IPoolable
 {
-    private EnemySpawner spawner;
+    private IAliveCounter counter;
 
-    public void Bind(EnemySpawner owner)
+    public void Bind(IAliveCounter owner)
     {
-        spawner = owner;
+        counter = owner;
     }
 
-    public void OnSpawned()
-    {
-
-    }
+    public void OnSpawned() { }
 
     public void OnDespawned()
     {
-        if (spawner != null)
-            spawner.NotifyEnemyDead();
+        counter?.NotifyEnemyDead();
     }
 }

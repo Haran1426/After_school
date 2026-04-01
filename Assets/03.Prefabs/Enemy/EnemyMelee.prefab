@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4834254631336715671}
   - component: {fileID: 7288431751340674145}
   - component: {fileID: 4847638750087786443}
+  - component: {fileID: 5980140798936726369}
   - component: {fileID: 1495478812965776668}
   m_Layer: 6
   m_Name: EnemyMelee
@@ -62,6 +63,20 @@ MonoBehaviour:
   currentHp: 0
   moveSpeed: 2
   hitRadius: 0.4
+  expOrbType: 4
+  expReward: 1
+--- !u!114 &5980140798936726369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4045283142399816578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c902011678a7bd47846d137554d74aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &1495478812965776668
 SpriteRenderer:
   m_ObjectHideFlags: 0

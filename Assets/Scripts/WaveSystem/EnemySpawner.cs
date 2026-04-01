@@ -1,89 +1,93 @@
-using System.Collections;
-using UnityEngine;
+//using System.Collections;
+//using UnityEngine;
 
-[System.Serializable]
-public class SpawnEntry
-{
-    public PoolType type;
-    public int weight = 1;
-}
+//[System.Serializable]
+//public class SpawnEntry
+//{
+//    public PoolType type;
+//    public int weight = 1;
+//}
 
-public sealed class EnemySpawner : MonoBehaviour
-{
-    [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private SpawnEntry[] enemies;
 
-    [SerializeField] private float interval = 1f;
-    [SerializeField] private int spawnPerTick = 1;
-    [SerializeField] private int maxAlive = 50;
 
-    private int alive;
-    private int weightSum;
+//public sealed class EnemySpawner : MonoBehaviour, IAliveCounter// WaveManager로 교체
+//{
+//    [SerializeField] private Transform[] spawnPoints;
+//    [SerializeField] private SpawnEntry[] enemies;
 
-    private void Awake()
-    {
-        for (int i = 0; i < enemies.Length; i++)
-            weightSum += Mathf.Max(0, enemies[i].weight);
-    }
+//    [SerializeField] private float interval = 1f;
+//    [SerializeField] private int spawnPerTick = 1;
+//    [SerializeField] private int maxAlive = 50;
 
-    private void OnEnable()
-    {
-        StartCoroutine(Loop());
-    }
+//    private int alive;
+//    private int weightSum;
 
-    private IEnumerator Loop()
-    {
-        var wait = new WaitForSeconds(interval);
+//    private void Awake()
+//    {
+//        for (int i = 0; i < enemies.Length; i++)
+//            weightSum += Mathf.Max(0, enemies[i].weight);
+//    }
 
-        while (true)
-        {
-            for (int i = 0; i < spawnPerTick; i++)
-            {
-                if (alive >= maxAlive) break;
-                SpawnOne();
-            }
+//    private void OnEnable()
+//    {
+//        StartCoroutine(Loop());
+//    }
 
-            yield return wait;
-        }
-    }
-    private void SpawnOne()
-    {
-        if (spawnPoints == null || spawnPoints.Length == 0) return;
+//    private IEnumerator Loop()
+//    {
+//        var wait = new WaitForSeconds(interval);
 
-        var point = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        if (point == null) return;
+//        while (true)
+//        {
+//            for (int i = 0; i < spawnPerTick; i++)
+//            {
+//                if (alive >= maxAlive) break;
+//                SpawnOne();
+//            }
 
-        var type = PickType();
+//            yield return wait;
+//        }
+//    }
 
-        if (GameRoot.Instance == null || GameRoot.Instance.Pool == null) return;
-        var go = GameRoot.Instance.Pool.Spawn(type, point.position, point.rotation);
-        if (go == null) return;
+//    private void SpawnOne()
+//    {
+//        if (spawnPoints == null || spawnPoints.Length == 0) return;
 
-        alive++;
+//        var point = spawnPoints[Random.Range(0, spawnPoints.Length)];
+//        if (point == null) return;
 
-        var po = go.GetComponent<PooledObject>();
-        if (po != null)
-        {
-            go.GetComponent<EnemyLifeHook>()?.Bind(this);
-        }
-    }
+//        var type = PickType();
 
-    public void NotifyEnemyDead()
-    {
-        alive = Mathf.Max(0, alive - 1);
-    }
+//        if (GameRoot.Instance == null || GameRoot.Instance.Pool == null) return;
+//        var go = GameRoot.Instance.Pool.Spawn(type, point.position, point.rotation);
+//        if (go == null) return;
 
-    private PoolType PickType()
-    {
-        int r = Random.Range(0, weightSum);
-        int acc = 0;
+//        alive++;
 
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            acc += enemies[i].weight;
-            if (r < acc) return enemies[i].type;
-        }
+//        var po = go.GetComponent<PooledObject>();
+//        if (po != null)
+//        {
+//            go.GetComponent<EnemyLifeHook>()?.Bind(this);
+//        }
+//    }
 
-        return enemies[0].type;
-    }
-}
+//    public void NotifyEnemyDead()
+//    {
+//        alive = Mathf.Max(0, alive - 1);
+//    }
+
+//    private PoolType PickType()
+//    {
+//        int r = Random.Range(0, weightSum);
+//        int acc = 0;
+
+//        for (int i = 0; i < enemies.Length; i++)
+//        {
+//            acc += enemies[i].weight;
+//            if (r < acc) return enemies[i].type;
+//        }
+
+//        return enemies[0].type;
+//    }
+//}
+//#endif
