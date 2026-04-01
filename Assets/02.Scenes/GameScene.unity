@@ -3234,7 +3234,7 @@ MonoBehaviour:
     prefab: {fileID: 220149889158578032, guid: d839c70621510eb40b4787d031a04a2f, type: 3}
     prewarmCount: 0
   - type: 6
-    prefab: {fileID: 0}
+    prefab: {fileID: 1661038190549598850, guid: 669e276fdb75c7649ae4c310ac1cb76e, type: 3}
     prewarmCount: 0
 --- !u!4 &1067842276
 Transform:
