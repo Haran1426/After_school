@@ -78,6 +78,7 @@ public abstract class EnemyBase : Entity
         IsDead = true;
 
         DropExp();
+        GameRoot.Instance.Game.RegisterKill();
 
         EnemyRegistry.All.Remove(this);
         Blade.ClearHitCache(this);
