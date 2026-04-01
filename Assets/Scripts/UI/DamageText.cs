@@ -22,6 +22,6 @@ public class DamageText : MonoBehaviour
 
         timer += Time.deltaTime;
         if (timer >= lifeTime)
-            gameObject.SetActive(false);
+            GetComponent<PooledObject>().ReturnToPool();
     }
 }
