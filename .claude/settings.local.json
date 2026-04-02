@@ -12,7 +12,8 @@
       "mcp__UnityMCP__manage_gameobject",
       "mcp__UnityMCP__manage_camera",
       "mcp__UnityMCP__refresh_unity",
-      "Bash(xargs wc:*)"
+      "Bash(xargs wc:*)",
+      "Bash(git -C /c/Users/hanin/After_school log --oneline -30)"
     ]
   }
 }
