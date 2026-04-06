@@ -20,6 +20,10 @@ public class LevelUpUI : MonoBehaviour
         gameObject.SetActive(true);
         Time.timeScale = 0f;
 
+        // Awake 이후에 생성된 경우를 대비해 재탐색
+        if (weaponManager == null) weaponManager = FindAnyObjectByType<PlayerWeaponManager>();
+        if (player == null) player = FindAnyObjectByType<Player>();
+
         var selected = GetRandomRewards(3);
 
         for (int i = 0; i < slots.Count; i++)
@@ -30,8 +34,7 @@ public class LevelUpUI : MonoBehaviour
     {
         if (data.rewardType == RewardType.Weapon)
         {
-            if (weaponManager != null && data.weaponPrefab != null)
-                weaponManager.AddOrUpgradeWeapon(data.weaponPrefab);
+            weaponManager.AddOrUpgradeWeapon(data.weaponPrefab);
         }
         else if (data.rewardType == RewardType.Stat)
         {
