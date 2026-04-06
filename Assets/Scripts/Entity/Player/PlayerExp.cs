@@ -21,7 +21,7 @@ public class PlayerExp : MonoBehaviour
     {
         currentExp += value;
 
-        if (currentExp >= requiredExp)
+        while (currentExp >= requiredExp)
             LevelUp();
 
         UpdateUI();

@@ -13,7 +13,10 @@ public class Player : Entity
     private void UpdateUI()
     {
         if (Hpbar != null)
-            Hpbar.value = (float)currentHp;
+        {
+            Hpbar.maxValue = maxHp;
+            Hpbar.value = currentHp;
+        }
     }
     protected override void Die()
     {

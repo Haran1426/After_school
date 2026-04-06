@@ -2801,20 +2801,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnMargin: 1
   phases:
-  - startTime: 10
-    label: 
-    spawnInterval: 0
+  - startTime: 20
+    label: "\uC2A4\uD14C\uC774\uC9C0 1"
+    spawnInterval: 2
     spawnPerTick: 1
-    maxAlive: 0
+    maxAlive: 5
     enemies:
     - type: 0
-      weight: 0
-  - startTime: 0
-    label: 
-    spawnInterval: 0
-    spawnPerTick: 0
-    maxAlive: 0
-    enemies: []
+      weight: 100
+  - startTime: 30
+    label: "\uC2A4\uD14C\uC774\uC9C0 2"
+    spawnInterval: 2
+    spawnPerTick: 1
+    maxAlive: 10
+    enemies:
+    - type: 0
+      weight: 70
+    - type: 1
+      weight: 30
+  - startTime: 30
+    label: "\uC2A4\uD14C\uC774\uC9C0 3"
+    spawnInterval: 1.5
+    spawnPerTick: 8
+    maxAlive: 10
+    enemies:
+    - type: 0
+      weight: 70
+    - type: 1
+      weight: 30
 --- !u!4 &1003775158
 Transform:
   m_ObjectHideFlags: 0
