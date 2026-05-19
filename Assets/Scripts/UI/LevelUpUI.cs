@@ -17,21 +17,30 @@ public class LevelUpUI : MonoBehaviour
 
     public void Show()
     {
-        gameObject.SetActive(true);
-        Time.timeScale = 0f;
-
         // Awake 이후에 생성된 경우를 대비해 재탐색
         if (weaponManager == null) weaponManager = FindAnyObjectByType<PlayerWeaponManager>();
         if (player == null) player = FindAnyObjectByType<Player>();
 
-        var selected = GetRandomRewards(3);
+        var selected = GetRandomRewards(slots.Count);
+        if (selected.Count == 0)
+            return;
+
+        gameObject.SetActive(true);
+        Time.timeScale = 0f;
 
         for (int i = 0; i < slots.Count; i++)
-            slots[i].Setup(selected[i], OnRewardSelected);
+        {
+            if (i < selected.Count)
+                slots[i].Setup(selected[i], OnRewardSelected);
+            else
+                slots[i].Hide();
+        }
     }
 
     private void OnRewardSelected(RewardData data)
     {
+        if (data == null) return;
+
         if (data.rewardType == RewardType.Weapon)
         {
             weaponManager.AddOrUpgradeWeapon(data.weaponPrefab);
@@ -70,8 +79,14 @@ public class LevelUpUI : MonoBehaviour
 
     private List<RewardData> GetRandomRewards(int count)
     {
-        List<RewardData> copy = new List<RewardData>(rewardPool);
+        List<RewardData> copy = new List<RewardData>();
         List<RewardData> result = new List<RewardData>();
+
+        foreach (var reward in rewardPool)
+        {
+            if (IsValidReward(reward))
+                copy.Add(reward);
+        }
 
         count = Mathf.Min(count, copy.Count);
 
@@ -83,5 +98,13 @@ public class LevelUpUI : MonoBehaviour
         }
 
         return result;
+    }
+
+    private bool IsValidReward(RewardData reward)
+    {
+        return reward != null
+            && !string.IsNullOrWhiteSpace(reward.rewardName)
+            && !string.IsNullOrWhiteSpace(reward.description)
+            && (reward.rewardType != RewardType.Weapon || reward.weaponPrefab != null);
     }
 }
