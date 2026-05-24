@@ -27,7 +27,7 @@ public abstract class EnemyBase : Entity
     protected override void Awake()
     {
         base.Awake();
-        EnemyRegistry.All.Add(this);
+        RegisterEnemy();
     }
 
     protected virtual void Start()
@@ -80,7 +80,7 @@ public abstract class EnemyBase : Entity
         DropExp();
         GameRoot.Instance.Game.RegisterKill();
 
-        EnemyRegistry.All.Remove(this);
+        UnregisterEnemy();
         Blade.ClearHitCache(this);
 
         var po = GetComponent<PooledObject>();
@@ -107,10 +107,28 @@ public abstract class EnemyBase : Entity
         isKnockback = false;
         knockbackEndTime = 0f;
 
-        EnemyRegistry.All.Add(this);
+        RegisterEnemy();
         Blade.ClearHitCache(this);
         currentHp = maxHp;
         IsDead = false;
     }
+
+    public override void OnDespawned()
+    {
+        base.OnDespawned();
+        UnregisterEnemy();
+    }
+
+    private void RegisterEnemy()
+    {
+        if (!EnemyRegistry.All.Contains(this))
+            EnemyRegistry.All.Add(this);
+    }
+
+    private void UnregisterEnemy()
+    {
+        EnemyRegistry.All.Remove(this);
+    }
+
     protected abstract void UpdateBehavior();
 }
