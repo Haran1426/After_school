@@ -41,6 +41,8 @@ public class LevelUpUI : MonoBehaviour
     {
         if (data == null) return;
 
+        GameRoot.Instance.Audio.PlaySfx(AudioCue.RewardSelect);
+
         if (data.rewardType == RewardType.Weapon)
         {
             weaponManager.AddOrUpgradeWeapon(data.weaponPrefab);

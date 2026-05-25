@@ -55,6 +55,7 @@ public class KnifeWeapon : WeaponBase
 
         var knife = go.GetComponent<Knife>();
         knife.Init(target.transform.position);
+        GameRoot.Instance.Audio.PlaySfx(AudioCue.KnifeThrow);
     }
 
     protected override void OnLevelUp()

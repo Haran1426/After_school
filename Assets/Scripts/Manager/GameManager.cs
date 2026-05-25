@@ -36,6 +36,7 @@ public class GameManager : ManagerBase
         IsGameOver = true;
         Time.timeScale = 0f;
 
+        GameRoot.Instance.Audio.PlaySfx(AudioCue.GameOver);
         OnGameOver?.Invoke();
     }
 }

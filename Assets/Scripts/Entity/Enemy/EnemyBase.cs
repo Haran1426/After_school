@@ -65,6 +65,7 @@ public abstract class EnemyBase : Entity
         }
 
         isStunned = true;
+        GameRoot.Instance.Audio.PlaySfx(AudioCue.EnemyHit);
         stunEndTime = Time.time + 0.15f;
 
         Vector3 dir = (transform.position - player.position).normalized;
@@ -77,6 +78,7 @@ public abstract class EnemyBase : Entity
         if (IsDead) return;
         IsDead = true;
 
+        GameRoot.Instance.Audio.PlaySfx(AudioCue.EnemyDie);
         DropExp();
         GameRoot.Instance.Game.RegisterKill();
 

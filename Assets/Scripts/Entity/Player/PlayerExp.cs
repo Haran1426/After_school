@@ -25,6 +25,7 @@ public class PlayerExp : MonoBehaviour
     public void AddExp(int value)
     {
         currentExp += value;
+        GameRoot.Instance.Audio.PlaySfx(AudioCue.ExpPickup);
 
         while (currentExp >= requiredExp)
             LevelUp();
@@ -37,6 +38,7 @@ public class PlayerExp : MonoBehaviour
         currentExp -= requiredExp;
         level++;
         requiredExp = CalculateNextExp();
+        GameRoot.Instance.Audio.PlaySfx(AudioCue.LevelUp);
         levelUpUI?.Show();
     }
 

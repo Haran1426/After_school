@@ -18,6 +18,16 @@ public class Player : Entity
             Hpbar.value = currentHp;
         }
     }
+
+    public override void TakeDamage(float damage)
+    {
+        bool canTakeDamage = !IsDead && currentHp > 0f;
+        base.TakeDamage(damage);
+
+        if (canTakeDamage)
+            GameRoot.Instance.Audio.PlaySfx(AudioCue.PlayerHit);
+    }
+
     protected override void Die()
     {
         GameRoot.Instance.Game.GameOver();
