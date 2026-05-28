@@ -5738,6 +5738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1852684074}
   - component: {fileID: 1852684075}
+  - component: {fileID: 1852684076}
   m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
@@ -5755,7 +5756,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.385, y: 0.385, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2135148479}
@@ -5804,7 +5805,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d3639170cc0f55e42ba1574cde59a2bd, type: 3}
+  m_Sprite: {fileID: 2587706737540376869, guid: 76da2215d40fb99469517ba3b011f621, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5815,6 +5816,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1852684076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852684073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2ce59c902c4f04b9ea02516b7fd321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1852684075}
+  idleFrames:
+  - {fileID: 2587706737540376869, guid: 76da2215d40fb99469517ba3b011f621, type: 3}
+  - {fileID: -322672845186744888, guid: 76da2215d40fb99469517ba3b011f621, type: 3}
+  - {fileID: -4314984216666195884, guid: 76da2215d40fb99469517ba3b011f621, type: 3}
+  - {fileID: 105753160185580545, guid: 76da2215d40fb99469517ba3b011f621, type: 3}
+  - {fileID: -1763858046133907374, guid: 76da2215d40fb99469517ba3b011f621, type: 3}
+  - {fileID: -8621629855350745536, guid: 76da2215d40fb99469517ba3b011f621, type: 3}
+  - {fileID: 2174560982455349002, guid: 76da2215d40fb99469517ba3b011f621, type: 3}
+  - {fileID: 4488954957988025335, guid: 76da2215d40fb99469517ba3b011f621, type: 3}
+  walkFrames:
+  - {fileID: 5500356400300576604, guid: 16953eb26f4265642becaeb04fb4fa97, type: 3}
+  - {fileID: -8983036237744960027, guid: 16953eb26f4265642becaeb04fb4fa97, type: 3}
+  - {fileID: 386570328412068125, guid: 16953eb26f4265642becaeb04fb4fa97, type: 3}
+  - {fileID: -5902527444674996991, guid: 16953eb26f4265642becaeb04fb4fa97, type: 3}
+  - {fileID: 203952742139063080, guid: 16953eb26f4265642becaeb04fb4fa97, type: 3}
+  - {fileID: 1469367269197533695, guid: 16953eb26f4265642becaeb04fb4fa97, type: 3}
+  - {fileID: -1587089218276414479, guid: 16953eb26f4265642becaeb04fb4fa97, type: 3}
+  idleFps: 6
+  walkFps: 10
+  flipWithHorizontalInput: 1
 --- !u!1 &1859278240
 GameObject:
   m_ObjectHideFlags: 0
