@@ -25,7 +25,7 @@ public class Knife : MonoBehaviour
 
         if (Time.time >= despawnTime)
         {
-            Destroy(gameObject);
+            Despawn();
             return;
         }
 
@@ -38,8 +38,16 @@ public class Knife : MonoBehaviour
             if (dist > hitRadius + e.hitRadius) continue;
 
             e.TakeDamage(damage);
-            Destroy(gameObject);
+            Despawn();
             return;
         }
+    }
+
+    private void Despawn()
+    {
+        if (TryGetComponent<PooledObject>(out var pooled))
+            pooled.ReturnToPool();
+        else
+            Destroy(gameObject);
     }
 }
