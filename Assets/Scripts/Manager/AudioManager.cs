@@ -3,6 +3,9 @@ using UnityEngine;
 public enum AudioCue
 {
     KnifeThrow,
+    ClawSwipe,
+    LeafBurst,
+    AcornShot,
     EnemyHit,
     EnemyDie,
     PlayerHit,
@@ -19,6 +22,9 @@ public class AudioManager : ManagerBase
 
     AudioClip bgmClip;
     AudioClip knifeThrowClip;
+    AudioClip clawSwipeClip;
+    AudioClip leafBurstClip;
+    AudioClip acornShotClip;
     AudioClip enemyHitClip;
     AudioClip enemyDieClip;
     AudioClip playerHitClip;
@@ -108,6 +114,12 @@ public class AudioManager : ManagerBase
         {
             case AudioCue.KnifeThrow:
                 return knifeThrowClip;
+            case AudioCue.ClawSwipe:
+                return clawSwipeClip;
+            case AudioCue.LeafBurst:
+                return leafBurstClip;
+            case AudioCue.AcornShot:
+                return acornShotClip;
             case AudioCue.EnemyHit:
                 return enemyHitClip;
             case AudioCue.EnemyDie:
@@ -129,15 +141,35 @@ public class AudioManager : ManagerBase
 
     private void CreateDefaultClips()
     {
-        bgmClip = CreateBgmClip();
-        knifeThrowClip = CreateToneClip("KnifeThrow", 0.08f, 740f, 440f, 0.45f, WaveType.Triangle);
-        enemyHitClip = CreateToneClip("EnemyHit", 0.06f, 220f, 110f, 0.55f, WaveType.Noise);
-        enemyDieClip = CreateToneClip("EnemyDie", 0.16f, 180f, 70f, 0.7f, WaveType.Saw);
-        playerHitClip = CreateToneClip("PlayerHit", 0.12f, 120f, 70f, 0.75f, WaveType.Square);
-        expPickupClip = CreateToneClip("ExpPickup", 0.09f, 660f, 990f, 0.45f, WaveType.Sine);
-        levelUpClip = CreateArpeggioClip("LevelUp", new[] { 523.25f, 659.25f, 783.99f, 1046.5f }, 0.08f, 0.55f);
-        rewardSelectClip = CreateToneClip("RewardSelect", 0.08f, 880f, 1174.66f, 0.45f, WaveType.Sine);
-        gameOverClip = CreateArpeggioClip("GameOver", new[] { 392f, 329.63f, 261.63f, 196f }, 0.16f, 0.7f);
+        bgmClip = LoadClip("Audio/BGM/bgm_forest_survival_loop", CreateBgmClip);
+
+        clawSwipeClip = LoadClip("Audio/SFX/sfx_claw_swipe",
+            () => CreateToneClip("ClawSwipe", 0.08f, 740f, 440f, 0.45f, WaveType.Triangle));
+        knifeThrowClip = clawSwipeClip;
+        leafBurstClip = LoadClip("Audio/SFX/sfx_leaf_burst",
+            () => CreateToneClip("LeafBurst", 0.18f, 520f, 240f, 0.45f, WaveType.Noise));
+        acornShotClip = LoadClip("Audio/SFX/sfx_acorn_shot",
+            () => CreateToneClip("AcornShot", 0.08f, 660f, 360f, 0.45f, WaveType.Triangle));
+        enemyHitClip = LoadClip("Audio/SFX/sfx_enemy_hit",
+            () => CreateToneClip("EnemyHit", 0.06f, 220f, 110f, 0.55f, WaveType.Noise));
+        enemyDieClip = LoadClip("Audio/SFX/sfx_enemy_die",
+            () => CreateToneClip("EnemyDie", 0.16f, 180f, 70f, 0.7f, WaveType.Saw));
+        playerHitClip = LoadClip("Audio/SFX/sfx_player_hit",
+            () => CreateToneClip("PlayerHit", 0.12f, 120f, 70f, 0.75f, WaveType.Square));
+        expPickupClip = LoadClip("Audio/SFX/sfx_exp_pickup",
+            () => CreateToneClip("ExpPickup", 0.09f, 660f, 990f, 0.45f, WaveType.Sine));
+        levelUpClip = LoadClip("Audio/SFX/sfx_level_up",
+            () => CreateArpeggioClip("LevelUp", new[] { 523.25f, 659.25f, 783.99f, 1046.5f }, 0.08f, 0.55f));
+        rewardSelectClip = LoadClip("Audio/SFX/sfx_reward_select",
+            () => CreateToneClip("RewardSelect", 0.08f, 880f, 1174.66f, 0.45f, WaveType.Sine));
+        gameOverClip = LoadClip("Audio/SFX/sfx_game_over",
+            () => CreateArpeggioClip("GameOver", new[] { 392f, 329.63f, 261.63f, 196f }, 0.16f, 0.7f));
+    }
+
+    private AudioClip LoadClip(string resourcesPath, System.Func<AudioClip> fallbackFactory)
+    {
+        AudioClip clip = Resources.Load<AudioClip>(resourcesPath);
+        return clip != null ? clip : fallbackFactory();
     }
 
     private AudioClip CreateBgmClip()
