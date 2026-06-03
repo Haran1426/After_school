@@ -4,14 +4,17 @@ using UnityEngine;
 public class GameManager : ManagerBase
 {
     public bool IsGameOver { get; private set; }
+    public bool IsStageCleared { get; private set; }
     public int KillCount { get; private set; }
     public float SurvivedTime { get; private set; }
 
     public event Action OnGameOver;
+    public event Action OnStageCleared;
 
     protected override void OnInitialize()
     {
         IsGameOver = false;
+        IsStageCleared = false;
         KillCount = 0;
         SurvivedTime = 0f;
         Time.timeScale = 1f;
@@ -19,7 +22,7 @@ public class GameManager : ManagerBase
 
     private void Update()
     {
-        if (!IsGameOver)
+        if (!IsGameOver && !IsStageCleared)
             SurvivedTime += Time.deltaTime;
     }
 
@@ -30,7 +33,7 @@ public class GameManager : ManagerBase
 
     public void GameOver()
     {
-        if (IsGameOver)
+        if (IsGameOver || IsStageCleared)
             return;
 
         IsGameOver = true;
@@ -38,5 +41,17 @@ public class GameManager : ManagerBase
 
         GameRoot.Instance.Audio.PlaySfx(AudioCue.GameOver);
         OnGameOver?.Invoke();
+    }
+
+    public void StageClear()
+    {
+        if (IsGameOver || IsStageCleared)
+            return;
+
+        IsStageCleared = true;
+        Time.timeScale = 0f;
+
+        GameRoot.Instance.Audio.PlaySfx(AudioCue.LevelUp);
+        OnStageCleared?.Invoke();
     }
 }

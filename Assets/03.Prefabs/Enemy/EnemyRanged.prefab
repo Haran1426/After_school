@@ -97,8 +97,17 @@ MonoBehaviour:
   hitRadius: 0.4
   expOrbType: 4
   expReward: 1
+  hitStunSeconds: 0.12
+  knockbackSeconds: 0.1
+  knockbackSpeed: 7.5
+  contactDamage: 1
+  contactDamageInterval: 0.65
   attackRange: 5
   fireInterval: 1.5
+  preferredRange: 4.2
+  retreatRange: 2.6
+  strafeStrength: 0.45
+  strafeChangeInterval: 1.2
   projectilePrefab: {fileID: 9065802748056770002, guid: 2ae65539d7eedb84ab8f9fcd5b227fc1, type: 3}
   firePoint: {fileID: 983198717554181083}
 --- !u!114 &2074160145930340931

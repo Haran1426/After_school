@@ -8,11 +8,13 @@ public class LevelUpUI : MonoBehaviour
 
     private PlayerWeaponManager weaponManager;
     private Player player;
+    private PlayerMovement playerMovement;
 
     private void Awake()
     {
         weaponManager = FindAnyObjectByType<PlayerWeaponManager>();
         player = FindAnyObjectByType<Player>();
+        playerMovement = FindAnyObjectByType<PlayerMovement>();
     }
 
     public void Show()
@@ -20,6 +22,10 @@ public class LevelUpUI : MonoBehaviour
         // Awake 이후에 생성된 경우를 대비해 재탐색
         if (weaponManager == null) weaponManager = FindAnyObjectByType<PlayerWeaponManager>();
         if (player == null) player = FindAnyObjectByType<Player>();
+        if (playerMovement == null) playerMovement = FindAnyObjectByType<PlayerMovement>();
+
+        if (slots == null || slots.Count == 0)
+            return;
 
         var selected = GetRandomRewards(slots.Count);
         if (selected.Count == 0)
@@ -45,7 +51,7 @@ public class LevelUpUI : MonoBehaviour
 
         if (data.rewardType == RewardType.Weapon)
         {
-            weaponManager.AddOrUpgradeWeapon(data.weaponPrefab);
+            weaponManager?.AddOrUpgradeWeapon(data.weaponPrefab);
         }
         else if (data.rewardType == RewardType.Stat)
         {
@@ -58,23 +64,41 @@ public class LevelUpUI : MonoBehaviour
 
     private void ApplyStatReward(RewardData data)
     {
-        if (player == null) return;
-
         switch (data.statRewardType)
         {
             case StatRewardType.AddMaxHp:
+                if (player == null) return;
+
                 player.maxHp += data.value;
                 player.currentHp += data.value;
                 if (player.currentHp > player.maxHp) player.currentHp = player.maxHp;
                 break;
 
             case StatRewardType.Heal:
+                if (player == null) return;
+
                 player.currentHp += data.value;
                 if (player.currentHp > player.maxHp) player.currentHp = player.maxHp;
                 break;
 
             case StatRewardType.Power:
+                if (player == null) return;
+
                 player.power += data.value;
+                break;
+
+            case StatRewardType.MoveSpeed:
+                if (playerMovement == null)
+                    playerMovement = FindAnyObjectByType<PlayerMovement>();
+
+                playerMovement?.AddMoveSpeed(data.value);
+                break;
+
+            case StatRewardType.ExpMagnet:
+                if (player == null)
+                    player = FindAnyObjectByType<Player>();
+
+                player?.AddExpMagnetRange(data.value);
                 break;
         }
     }
@@ -83,6 +107,9 @@ public class LevelUpUI : MonoBehaviour
     {
         List<RewardData> copy = new List<RewardData>();
         List<RewardData> result = new List<RewardData>();
+
+        if (rewardPool == null)
+            return result;
 
         foreach (var reward in rewardPool)
         {

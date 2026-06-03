@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 boundsMin = new Vector2(-20f, -12f);
     [SerializeField] private Vector2 boundsMax = new Vector2(20f, 12f);
 
+    public Vector2 LastMoveInput { get; private set; }
+
     private void Update()
     {
         Move();
@@ -14,7 +16,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 input = GetMoveInput();
+        LastMoveInput = input;
+
         if (input == Vector2.zero) return;
 
         Vector3 next = transform.position + (Vector3)(input.normalized * moveSpeed * Time.deltaTime);
@@ -26,6 +30,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.position = next;
+    }
+
+    private Vector2 GetMoveInput()
+    {
+        Vector2 touchInput = MobileJoystickUI.Direction;
+        if (touchInput.sqrMagnitude > 0.001f)
+            return touchInput;
+
+        return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
     public void ConfigureMovementBounds(bool useBounds, Vector2 min, Vector2 max)
@@ -43,6 +56,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (speed > 0f)
             moveSpeed = speed;
+    }
+
+    public void AddMoveSpeed(float value)
+    {
+        moveSpeed = Mathf.Max(0.1f, moveSpeed + value);
     }
 
     private void OnDrawGizmos()

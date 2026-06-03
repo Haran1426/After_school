@@ -102,8 +102,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expValue: 1
-  absorbDistance: 1.2
+  magnetDistance: 3.2
+  absorbDistance: 0.2
   moveSpeed: 8
+  acceleration: 18
 --- !u!114 &1690582225660697467
 MonoBehaviour:
   m_ObjectHideFlags: 0

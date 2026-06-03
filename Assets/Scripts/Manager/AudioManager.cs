@@ -12,7 +12,9 @@ public enum AudioCue
     ExpPickup,
     LevelUp,
     RewardSelect,
-    GameOver
+    GameOver,
+    LeafWhirlwind,
+    BossShockwave
 }
 
 public class AudioManager : ManagerBase
@@ -32,6 +34,8 @@ public class AudioManager : ManagerBase
     AudioClip levelUpClip;
     AudioClip rewardSelectClip;
     AudioClip gameOverClip;
+    AudioClip leafWhirlwindClip;
+    AudioClip bossShockwaveClip;
 
     float bgmVolume = 0.35f;
     float sfxVolume = 0.8f;
@@ -134,6 +138,10 @@ public class AudioManager : ManagerBase
                 return rewardSelectClip;
             case AudioCue.GameOver:
                 return gameOverClip;
+            case AudioCue.LeafWhirlwind:
+                return leafWhirlwindClip;
+            case AudioCue.BossShockwave:
+                return bossShockwaveClip;
             default:
                 return null;
         }
@@ -164,6 +172,10 @@ public class AudioManager : ManagerBase
             () => CreateToneClip("RewardSelect", 0.08f, 880f, 1174.66f, 0.45f, WaveType.Sine));
         gameOverClip = LoadClip("Audio/SFX/sfx_game_over",
             () => CreateArpeggioClip("GameOver", new[] { 392f, 329.63f, 261.63f, 196f }, 0.16f, 0.7f));
+        leafWhirlwindClip = LoadClip("Audio/SFX/sfx_leaf_whirlwind",
+            () => CreateLayeredToneClip("LeafWhirlwind", 0.22f, 760f, 420f, 0.38f, WaveType.Sine, WaveType.Noise));
+        bossShockwaveClip = LoadClip("Audio/SFX/sfx_boss_shockwave",
+            () => CreateLayeredToneClip("BossShockwave", 0.32f, 120f, 52f, 0.75f, WaveType.Saw, WaveType.Noise));
     }
 
     private AudioClip LoadClip(string resourcesPath, System.Func<AudioClip> fallbackFactory)
@@ -234,6 +246,30 @@ public class AudioManager : ManagerBase
             float envelope = 1f - progress;
             float wave = EvaluateWave(t, freq, waveType);
             data[i] = wave * envelope * volume;
+        }
+
+        AudioClip clip = AudioClip.Create(clipName, samples, 1, sampleRate, false);
+        clip.SetData(data, 0);
+        return clip;
+    }
+
+    private AudioClip CreateLayeredToneClip(string clipName, float seconds, float startFrequency, float endFrequency, float volume, WaveType mainWave, WaveType textureWave)
+    {
+        const int sampleRate = 44100;
+        int samples = Mathf.CeilToInt(sampleRate * seconds);
+        float[] data = new float[samples];
+
+        for (int i = 0; i < samples; i++)
+        {
+            float progress = (float)i / samples;
+            float freq = Mathf.Lerp(startFrequency, endFrequency, progress);
+            float t = (float)i / sampleRate;
+            float attack = Mathf.Clamp01(progress / 0.08f);
+            float release = 1f - Mathf.SmoothStep(0.25f, 1f, progress);
+            float envelope = attack * release;
+            float main = EvaluateWave(t, freq, mainWave);
+            float texture = EvaluateWave(t, freq * 1.7f, textureWave) * 0.22f;
+            data[i] = Mathf.Clamp((main + texture) * envelope * volume, -1f, 1f);
         }
 
         AudioClip clip = AudioClip.Create(clipName, samples, 1, sampleRate, false);

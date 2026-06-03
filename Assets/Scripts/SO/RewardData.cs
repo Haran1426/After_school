@@ -1,8 +1,5 @@
 using UnityEngine;
 
-
-
-
 public enum RewardType
 {
     Stat,
@@ -13,7 +10,9 @@ public enum StatRewardType
 {
     AddMaxHp,
     Heal,
-    Power
+    Power,
+    MoveSpeed,
+    ExpMagnet
 }
 
 [CreateAssetMenu(menuName = "LevelUp/Reward")]
@@ -30,6 +29,6 @@ public class RewardData : ScriptableObject
 
     public float value;
 
-    public StatRewardType statRewardType;   // ½ºÅÝ ¶§ »ç¿ë
+    public StatRewardType statRewardType;
     public WeaponBase weaponPrefab;
 }

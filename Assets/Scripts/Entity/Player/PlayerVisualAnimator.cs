@@ -10,6 +10,7 @@ public class PlayerVisualAnimator : MonoBehaviour
     [SerializeField, Min(1f)] private float walkFps = 10f;
     [SerializeField] private bool flipWithHorizontalInput = true;
 
+    private PlayerMovement movement;
     private bool wasWalking;
     private int frameIndex;
     private float frameTimer;
@@ -18,11 +19,15 @@ public class PlayerVisualAnimator : MonoBehaviour
     {
         if (spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
+
+        movement = GetComponentInParent<PlayerMovement>();
     }
 
     private void Update()
     {
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 input = movement != null
+            ? movement.LastMoveInput
+            : new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         bool isWalking = input.sqrMagnitude > 0.01f;
 
         if (flipWithHorizontalInput && input.x != 0f)

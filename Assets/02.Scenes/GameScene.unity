@@ -2645,8 +2645,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9509ebe3a8e786b45b0bf14007c038ef, type: 2}
   - {fileID: 11400000, guid: d7ee145909ccafc46aea388f85f306c2, type: 2}
   - {fileID: 11400000, guid: aa8ea9f63f4bb434cbb39a680f2e60cb, type: 2}
-  - {fileID: 11400000, guid: d912d3780ebbe194da47597dc60ea880, type: 2}
-  - {fileID: 11400000, guid: 63dce001976ba3845adbbc1627e1621e, type: 2}
+  - {fileID: 11400000, guid: 90cb7a7278c7411458eb0f0f8991e697, type: 2}
+  - {fileID: 11400000, guid: 40dc7544d95b3e945a63f8602e73faa3, type: 2}
+  - {fileID: 11400000, guid: bf4d783ef0c891d48987ed9d11faf8ce, type: 2}
+  - {fileID: 11400000, guid: b2e389a07f904d11b45d577ee0a2cf39, type: 2}
+  - {fileID: 11400000, guid: 6d4f2879dd584de485800603930ba90d, type: 2}
 --- !u!1 &744488866
 GameObject:
   m_ObjectHideFlags: 0
@@ -8723,16 +8726,19 @@ MonoBehaviour:
     visualPrefab: {fileID: 100000, guid: 94989755fed74c448a242f3a93db7f91, type: 3}
     initialWeaponPrefab: {fileID: 11400000, guid: a1b2c3d4e5f601b2c3d4e5f6a1b2c3d4, type: 3}
     moveSpeed: 5.5
+    maxHp: 10
     power: 1
   - character: 1
     visualPrefab: {fileID: 100000, guid: fb78da7e7d234ae9ad076f41d9337bce, type: 3}
     initialWeaponPrefab: {fileID: 11400000, guid: a1b2c3d4e5f601b2c3d4e5f6a1b2c3d4, type: 3}
     moveSpeed: 6.2
+    maxHp: 8
     power: 0.9
   - character: 2
     visualPrefab: {fileID: 100000, guid: a7fe241876e94f509fa81eebf74b80fd, type: 3}
     initialWeaponPrefab: {fileID: 11400000, guid: b1c2d3e4f5a601b2c3d4e5f6b1c2d3e4, type: 3}
     moveSpeed: 5.2
+    maxHp: 11
     power: 1.1
 --- !u!1 &300001000
 GameObject:

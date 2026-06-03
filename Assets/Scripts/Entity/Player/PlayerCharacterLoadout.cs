@@ -7,6 +7,7 @@ public sealed class PlayerCharacterLoadoutEntry
     public GameObject visualPrefab;
     public WeaponBase initialWeaponPrefab;
     [Min(0.1f)] public float moveSpeed = 5f;
+    [Min(1f)] public float maxHp = 10f;
     [Min(0.1f)] public float power = 1f;
 }
 
@@ -83,7 +84,12 @@ public sealed class PlayerCharacterLoadout : MonoBehaviour
             player = GetComponent<Player>();
 
         if (player != null)
+        {
+            player.maxHp = loadout.maxHp;
+            player.currentHp = loadout.maxHp;
             player.power = loadout.power;
+            player.ConfigureCharacterPassive(loadout.character);
+        }
     }
 
     private void ApplyInitialWeapon(WeaponBase weaponPrefab)

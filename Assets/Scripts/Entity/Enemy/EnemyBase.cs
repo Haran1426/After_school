@@ -14,8 +14,14 @@ public abstract class EnemyBase : Entity
 
     [SerializeField] private PoolType expOrbType = PoolType.ExpOrb;
     [SerializeField] private int expReward = 1;
+    [SerializeField, Min(0f)] private float hitStunSeconds = 0.12f;
+    [SerializeField, Min(0f)] private float knockbackSeconds = 0.1f;
+    [SerializeField, Min(0f)] private float knockbackSpeed = 7.5f;
+    [SerializeField, Min(0f)] private float contactDamage = 1f;
+    [SerializeField, Min(0.05f)] private float contactDamageInterval = 0.65f;
 
     protected Transform player;
+    Player playerEntity;
     public event System.Action<EnemyBase> Died;
 
     bool isStunned;
@@ -24,6 +30,7 @@ public abstract class EnemyBase : Entity
     Vector3 knockbackDir;
     float knockbackEndTime;
     bool isKnockback;
+    float nextContactDamageTime;
 
     protected override void Awake()
     {
@@ -33,14 +40,30 @@ public abstract class EnemyBase : Entity
 
     protected virtual void Start()
     {
-        var p = GameObject.FindGameObjectWithTag("Player");
-        if (p != null) player = p.transform;
+        CachePlayer();
     }
 
     protected virtual void Update()
     {
-        if (IsDead || player == null)
+        if (IsDead)
             return;
+
+        if (player == null)
+            CachePlayer();
+
+        if (player == null)
+            return;
+
+        if (isKnockback)
+        {
+            if (Time.time < knockbackEndTime)
+            {
+                transform.position += knockbackDir * knockbackSpeed * Time.deltaTime;
+                return;
+            }
+
+            isKnockback = false;
+        }
 
         if (isStunned)
         {
@@ -49,6 +72,7 @@ public abstract class EnemyBase : Entity
         }
 
         UpdateBehavior();
+        TryDealContactDamage();
     }
     public override void TakeDamage(float damage)
     {
@@ -67,11 +91,17 @@ public abstract class EnemyBase : Entity
 
         isStunned = true;
         GameRoot.Instance.Audio.PlaySfx(AudioCue.EnemyHit);
-        stunEndTime = Time.time + 0.15f;
+        stunEndTime = Time.time + hitStunSeconds;
 
-        Vector3 dir = (transform.position - player.position).normalized;
+        Vector3 dir = player != null
+            ? (transform.position - player.position).normalized
+            : -transform.up;
+
+        if (dir.sqrMagnitude <= 0.0001f)
+            dir = UnityEngine.Random.insideUnitCircle.normalized;
+
         knockbackDir = dir;
-        knockbackEndTime = Time.time + 0.1f;
+        knockbackEndTime = Time.time + knockbackSeconds;
         isKnockback = true;
     }
     protected override void Die()
@@ -110,6 +140,7 @@ public abstract class EnemyBase : Entity
 
         isKnockback = false;
         knockbackEndTime = 0f;
+        nextContactDamageTime = 0f;
 
         RegisterEnemy();
         Blade.ClearHitCache(this);
@@ -132,6 +163,33 @@ public abstract class EnemyBase : Entity
     private void UnregisterEnemy()
     {
         EnemyRegistry.All.Remove(this);
+    }
+
+    private void CachePlayer()
+    {
+        var p = GameObject.FindGameObjectWithTag("Player");
+        if (p == null)
+        {
+            player = null;
+            playerEntity = null;
+            return;
+        }
+
+        player = p.transform;
+        playerEntity = p.GetComponent<Player>();
+    }
+
+    private void TryDealContactDamage()
+    {
+        if (contactDamage <= 0f || playerEntity == null || Time.time < nextContactDamageTime)
+            return;
+
+        float contactRadius = Mathf.Max(0.05f, hitRadius);
+        if ((player.position - transform.position).sqrMagnitude > contactRadius * contactRadius)
+            return;
+
+        nextContactDamageTime = Time.time + contactDamageInterval;
+        playerEntity.TakeDamage(contactDamage);
     }
 
     protected abstract void UpdateBehavior();

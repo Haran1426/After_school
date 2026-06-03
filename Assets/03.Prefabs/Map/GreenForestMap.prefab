@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 100001}
   - component: {fileID: 100002}
   - component: {fileID: 100003}
+  - component: {fileID: 100004}
   m_Layer: 0
   m_Name: GreenForestMap
   m_TagString: Untagged
@@ -64,6 +65,8 @@ MonoBehaviour:
     spawnInterval: 1.2
     spawnPerTick: 1
     maxAlive: 18
+    enterBurstCount: 0
+    enterBurstType: 0
     enemies:
     - type: 0
       weight: 10
@@ -72,6 +75,8 @@ MonoBehaviour:
     spawnInterval: 0.95
     spawnPerTick: 2
     maxAlive: 28
+    enterBurstCount: 4
+    enterBurstType: 0
     enemies:
     - type: 0
       weight: 8
@@ -82,6 +87,8 @@ MonoBehaviour:
     spawnInterval: 0.75
     spawnPerTick: 3
     maxAlive: 42
+    enterBurstCount: 18
+    enterBurstType: 1
     enemies:
     - type: 0
       weight: 5
@@ -92,11 +99,33 @@ MonoBehaviour:
     spawnInterval: 0.55
     spawnPerTick: 4
     maxAlive: 60
+    enterBurstCount: 14
+    enterBurstType: 0
     enemies:
     - type: 0
       weight: 6
     - type: 1
       weight: 4
+--- !u!114 &100004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1677b28894be4934831d7521929c6174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageMap: {fileID: 100002}
+  seed: 20260608
+  grassCount: 90
+  bushCount: 30
+  stoneCount: 18
+  shadowTreeCount: 24
+  centerSafeRadius: 3.5
+  generateOnAwake: 1
 --- !u!212 &100003
 SpriteRenderer:
   m_ObjectHideFlags: 0

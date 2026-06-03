@@ -87,9 +87,9 @@ public sealed class CharacterSelectSceneUI : MonoBehaviour
         horizontal.childForceExpandWidth = false;
         horizontal.childForceExpandHeight = false;
 
-        CreateCharacterCard(row.transform, "고양이", "빠르고 민첩한 기본 캐릭터\n발톱 베기 / 그림자 이동", new Color(0.95f, 0.72f, 0.42f, 1f), SelectCat);
-        CreateCharacterCard(row.transform, "토끼", "빠른 이동과 회피 중심\n점프 충격파 / 당근 투척", new Color(0.92f, 0.82f, 1f, 1f), SelectBunny);
-        CreateCharacterCard(row.transform, "다람쥐", "도토리와 나뭇잎 활용\n도토리 탄환 / 나뭇잎 회오리", new Color(0.74f, 0.48f, 0.25f, 1f), SelectSquirrel);
+        CreateCharacterCard(row.transform, "고양이", "균형형 / 속도 5.5 / 체력 10\n발톱 베기 / 10% 회피", new Color(0.95f, 0.72f, 0.42f, 1f), SelectCat);
+        CreateCharacterCard(row.transform, "토끼", "회피형 / 속도 6.2 / 체력 8\n점프 충격파 / 22% 회피", new Color(0.92f, 0.82f, 1f, 1f), SelectBunny);
+        CreateCharacterCard(row.transform, "다람쥐", "기술형 / 공격 1.1 / 체력 11\n도토리 탄환 / 구슬 흡수 +0.9", new Color(0.74f, 0.48f, 0.25f, 1f), SelectSquirrel);
 
         GameObject bottomRow = CreateUiObject("BottomRow", panel.transform);
         RectTransform bottomRect = bottomRow.AddComponent<RectTransform>();

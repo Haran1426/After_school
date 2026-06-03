@@ -23,10 +23,12 @@ public sealed class WaveManager : MonoBehaviour, IAliveCounter
     public StageMap Stage => stageMap;
 
     public event Action<int> OnPhaseChanged;
+    public event Action OnBossWarning;
     public event Action OnBossTimeReached;
 
     private int weightSum;
     private Camera mainCam;
+    private bool bossWarningRaised;
     private bool bossTimeReached;
     private int nextEliteSpawnIndex;
 
@@ -61,6 +63,7 @@ public sealed class WaveManager : MonoBehaviour, IAliveCounter
         stageMap = map;
         CurrentPhaseIndex = -1;
         weightSum = 0;
+        bossWarningRaised = false;
         bossTimeReached = false;
         nextEliteSpawnIndex = 0;
     }
@@ -113,6 +116,7 @@ public sealed class WaveManager : MonoBehaviour, IAliveCounter
 
         CurrentPhaseIndex = newIdx;
         RebuildWeightSum(activePhases[newIdx]);
+        SpawnEnterBurst(activePhases[newIdx]);
         OnPhaseChanged?.Invoke(newIdx);
 
         Debug.Log($"[WaveManager] → {activePhases[newIdx].label} (phase {newIdx}, {activePhases[newIdx].startTime}s)");
@@ -191,12 +195,27 @@ public sealed class WaveManager : MonoBehaviour, IAliveCounter
         if (bossTimeReached || stageMap == null)
             return;
 
-        if (SurvivedTime() < stageMap.DurationSeconds)
+        float survivedTime = SurvivedTime();
+        TryRaiseBossWarning(survivedTime);
+
+        if (survivedTime < stageMap.DurationSeconds)
             return;
 
         bossTimeReached = true;
-        SpawnStageEnemy(stageMap.BossType, false);
+        SpawnStageEnemy(stageMap.BossType, false, true);
         OnBossTimeReached?.Invoke();
+    }
+
+    private void TryRaiseBossWarning(float survivedTime)
+    {
+        if (bossWarningRaised || stageMap == null)
+            return;
+
+        if (stageMap.DurationSeconds - survivedTime > 10f)
+            return;
+
+        bossWarningRaised = true;
+        OnBossWarning?.Invoke();
     }
 
     private void TrySpawnDueEliteEnemies()
@@ -207,14 +226,14 @@ public sealed class WaveManager : MonoBehaviour, IAliveCounter
         while (nextEliteSpawnIndex < stageMap.EliteSpawnTimes.Length
             && SurvivedTime() >= stageMap.EliteSpawnTimes[nextEliteSpawnIndex])
         {
-            if (!SpawnStageEnemy(stageMap.EliteEnemyType, true))
+            if (!SpawnStageEnemy(stageMap.EliteEnemyType, true, false))
                 return;
 
             nextEliteSpawnIndex++;
         }
     }
 
-    private bool SpawnStageEnemy(PoolType type, bool isElite)
+    private bool SpawnStageEnemy(PoolType type, bool isElite, bool isBoss)
     {
         if (GameRoot.Instance?.Pool == null)
             return false;
@@ -235,7 +254,38 @@ public sealed class WaveManager : MonoBehaviour, IAliveCounter
             elite.Configure(stageMap.OccupationDurationSeconds);
         }
 
+        if (isBoss)
+        {
+            BossEnemy boss = go.GetComponent<BossEnemy>();
+            if (boss == null)
+                boss = go.AddComponent<BossEnemy>();
+
+            boss.Configure();
+        }
+
         return true;
+    }
+
+    private void SpawnEnterBurst(WavePhaseData phase)
+    {
+        if (phase == null || phase.enterBurstCount <= 0)
+            return;
+
+        if (GameRoot.Instance?.Pool == null)
+            return;
+
+        int availableSlots = Mathf.Max(0, phase.maxAlive - AliveCount);
+        int count = Mathf.Min(phase.enterBurstCount, availableSlots);
+
+        for (int i = 0; i < count; i++)
+        {
+            var go = GameRoot.Instance.Pool.Spawn(phase.enterBurstType, GetCameraEdgePosition(), Quaternion.identity);
+            if (go == null)
+                continue;
+
+            AliveCount++;
+            go.GetComponent<EnemyLifeHook>()?.Bind(this);
+        }
     }
 
     private WavePhaseData[] ActivePhases

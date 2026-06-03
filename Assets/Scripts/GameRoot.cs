@@ -24,6 +24,10 @@ public class GameRoot : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         InitializeManagers();
+        StageProgressHUD.EnsureExists();
+        BossHealthHUD.EnsureExists();
+        MobileJoystickUI.EnsureExists();
+        PlayerDangerHUD.EnsureExists();
     }
 
     void InitializeManagers()

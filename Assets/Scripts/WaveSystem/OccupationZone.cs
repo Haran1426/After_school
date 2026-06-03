@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public enum OccupationRewardType
 {
@@ -18,6 +19,8 @@ public sealed class OccupationZone : MonoBehaviour
     [SerializeField] private bool deactivateOnComplete = true;
     [SerializeField] private bool createFallbackVisual = true;
     [SerializeField] private Color fallbackColor = new Color(0.2f, 1f, 0.4f, 0.28f);
+    [SerializeField] private Color progressColor = new Color(1f, 0.86f, 0.18f, 0.45f);
+    [SerializeField] private bool showProgressText = true;
 
     [Header("Reward")]
     [SerializeField] private OccupationRewardType[] rewardPool = { OccupationRewardType.LargeExp, OccupationRewardType.UpgradeChoice, OccupationRewardType.Heal };
@@ -33,9 +36,12 @@ public sealed class OccupationZone : MonoBehaviour
     private PlayerExp playerExp;
     private LevelUpUI levelUpUI;
     private SpriteRenderer fallbackRenderer;
+    private SpriteRenderer progressRenderer;
+    private TextMeshPro progressText;
     private static Sprite fallbackSprite;
 
     public float Progress01 => requiredStaySeconds > 0f ? Mathf.Clamp01(timer / requiredStaySeconds) : 1f;
+    public float RemainingSeconds => Mathf.Max(0f, requiredStaySeconds - timer);
     public bool IsCompleted => completed;
 
     private void Awake()
@@ -58,6 +64,7 @@ public sealed class OccupationZone : MonoBehaviour
 
         timer += Time.deltaTime;
         UpdateFallbackVisual();
+        UpdateProgressText();
 
         if (timer >= requiredStaySeconds)
             Complete();
@@ -97,6 +104,7 @@ public sealed class OccupationZone : MonoBehaviour
         playerInside = false;
         timer = 0f;
         UpdateFallbackVisual();
+        UpdateProgressText();
     }
 
     private void Complete()
@@ -223,6 +231,18 @@ public sealed class OccupationZone : MonoBehaviour
             radius = circle.radius;
 
         visual.transform.localScale = Vector3.one * radius * 2f;
+
+        GameObject progress = new GameObject("OccupationZoneProgress");
+        progress.transform.SetParent(transform, false);
+
+        progressRenderer = progress.AddComponent<SpriteRenderer>();
+        progressRenderer.sprite = GetFallbackSprite();
+        progressRenderer.color = progressColor;
+        progressRenderer.sortingOrder = 26;
+        progress.transform.localScale = Vector3.zero;
+
+        if (showProgressText)
+            CreateProgressText(radius);
     }
 
     private void UpdateFallbackVisual()
@@ -233,6 +253,45 @@ public sealed class OccupationZone : MonoBehaviour
         Color color = fallbackColor;
         color.a = Mathf.Lerp(fallbackColor.a, 0.55f, Progress01);
         fallbackRenderer.color = color;
+
+        if (progressRenderer != null)
+        {
+            float fillScale = Mathf.Lerp(0.15f, 1f, Progress01);
+            progressRenderer.transform.localScale = fallbackRenderer.transform.localScale * fillScale;
+            progressRenderer.color = progressColor;
+        }
+    }
+
+    private void CreateProgressText(float radius)
+    {
+        GameObject textObject = new GameObject("OccupationZoneTimerText");
+        textObject.transform.SetParent(transform, false);
+        textObject.transform.localPosition = new Vector3(0f, radius + 0.45f, 0f);
+
+        progressText = textObject.AddComponent<TextMeshPro>();
+        progressText.alignment = TextAlignmentOptions.Center;
+        progressText.fontSize = 2.6f;
+        progressText.color = new Color(1f, 0.96f, 0.62f, 1f);
+        progressText.sortingOrder = 35;
+        progressText.text = string.Empty;
+        progressText.textWrappingMode = TextWrappingModes.NoWrap;
+        progressText.rectTransform.sizeDelta = new Vector2(6f, 1f);
+    }
+
+    private void UpdateProgressText()
+    {
+        if (progressText == null)
+            return;
+
+        if (completed)
+        {
+            progressText.text = "완료!";
+            return;
+        }
+
+        progressText.text = playerInside
+            ? $"{Mathf.CeilToInt(RemainingSeconds)}초"
+            : "점령";
     }
 
     private static Sprite GetFallbackSprite()
