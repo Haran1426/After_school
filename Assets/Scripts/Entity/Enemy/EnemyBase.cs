@@ -16,6 +16,7 @@ public abstract class EnemyBase : Entity
     [SerializeField] private int expReward = 1;
 
     protected Transform player;
+    public event System.Action<EnemyBase> Died;
 
     bool isStunned;
     float stunEndTime;
@@ -81,6 +82,7 @@ public abstract class EnemyBase : Entity
         GameRoot.Instance.Audio.PlaySfx(AudioCue.EnemyDie);
         DropExp();
         GameRoot.Instance.Game.RegisterKill();
+        Died?.Invoke(this);
 
         UnregisterEnemy();
         Blade.ClearHitCache(this);

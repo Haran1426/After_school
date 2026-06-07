@@ -12,18 +12,23 @@ public sealed class WaveManager : MonoBehaviour, IAliveCounter
     [Header("스폰 설정")]
     [Tooltip("카메라 경계에서 얼마나 바깥에 스폰할지 (유닛)")]
     [SerializeField] private float spawnMargin = 1f;
+    [SerializeField] private StageMap stageMap;
 
     [Header("페이즈 설정 (startTime 오름차순)")]
     [SerializeField] private WavePhaseData[] phases;
 
     public int CurrentPhaseIndex { get; private set; } = -1;
-    public WavePhaseData CurrentPhase => IsValidIndex(CurrentPhaseIndex) ? phases[CurrentPhaseIndex] : null;
+    public WavePhaseData CurrentPhase => IsValidIndex(CurrentPhaseIndex) ? ActivePhases[CurrentPhaseIndex] : null;
     public int AliveCount { get; private set; }
+    public StageMap Stage => stageMap;
 
     public event Action<int> OnPhaseChanged;
+    public event Action OnBossTimeReached;
 
     private int weightSum;
     private Camera mainCam;
+    private bool bossTimeReached;
+    private int nextEliteSpawnIndex;
 
     private void Awake()
     {
@@ -35,13 +40,29 @@ public sealed class WaveManager : MonoBehaviour, IAliveCounter
     {
         mainCam = Camera.main;
 
-        if (phases == null || phases.Length == 0)
+        WavePhaseData[] activePhases = ActivePhases;
+        if (activePhases == null || activePhases.Length == 0)
         {
             Debug.LogError("[WaveManager] phases 배열이 비어있습니다. Inspector에서 설정하세요.");
             return;
         }
 
         StartCoroutine(SpawnLoop());
+    }
+
+    private void Update()
+    {
+        TrySpawnDueEliteEnemies();
+        TryRaiseBossTimeReached();
+    }
+
+    public void Configure(StageMap map)
+    {
+        stageMap = map;
+        CurrentPhaseIndex = -1;
+        weightSum = 0;
+        bossTimeReached = false;
+        nextEliteSpawnIndex = 0;
     }
 
     // ── 스폰 루프 ──────────────────────────────────────────────────────────
@@ -78,22 +99,23 @@ public sealed class WaveManager : MonoBehaviour, IAliveCounter
     private void TryAdvancePhase()
     {
         float t = SurvivedTime();
+        WavePhaseData[] activePhases = ActivePhases;
 
         // 현재 시간보다 startTime이 작거나 같은 것 중 가장 마지막 페이즈 선택
         int newIdx = 0;
-        for (int i = 1; i < phases.Length; i++)
+        for (int i = 1; i < activePhases.Length; i++)
         {
-            if (phases[i].startTime <= t) newIdx = i;
+            if (activePhases[i].startTime <= t) newIdx = i;
             else break; 
         }
 
         if (newIdx == CurrentPhaseIndex) return;
 
         CurrentPhaseIndex = newIdx;
-        RebuildWeightSum(phases[newIdx]);
+        RebuildWeightSum(activePhases[newIdx]);
         OnPhaseChanged?.Invoke(newIdx);
 
-        Debug.Log($"[WaveManager] → {phases[newIdx].label} (phase {newIdx}, {phases[newIdx].startTime}s)");
+        Debug.Log($"[WaveManager] → {activePhases[newIdx].label} (phase {newIdx}, {activePhases[newIdx].startTime}s)");
     }
 
     private void RebuildWeightSum(WavePhaseData phase)
@@ -137,7 +159,7 @@ public sealed class WaveManager : MonoBehaviour, IAliveCounter
         if (mainCam == null) mainCam = Camera.main;
         if (mainCam == null) return Vector3.zero;
 
-        float h = mainCam.orthographicSize + spawnMargin;
+        float h = mainCam.orthographicSize + ActiveSpawnMargin;
         float w = h * mainCam.aspect;
 
         Vector3 center = mainCam.transform.position;
@@ -161,10 +183,74 @@ public sealed class WaveManager : MonoBehaviour, IAliveCounter
     public float TimeUntilNextPhase()
     {
         if (!IsValidIndex(CurrentPhaseIndex + 1)) return -1f;
-        return Mathf.Max(0f, phases[CurrentPhaseIndex + 1].startTime - SurvivedTime());
+        return Mathf.Max(0f, ActivePhases[CurrentPhaseIndex + 1].startTime - SurvivedTime());
     }
 
-    private bool IsValidIndex(int idx) => phases != null && idx >= 0 && idx < phases.Length;
+    private void TryRaiseBossTimeReached()
+    {
+        if (bossTimeReached || stageMap == null)
+            return;
+
+        if (SurvivedTime() < stageMap.DurationSeconds)
+            return;
+
+        bossTimeReached = true;
+        SpawnStageEnemy(stageMap.BossType, false);
+        OnBossTimeReached?.Invoke();
+    }
+
+    private void TrySpawnDueEliteEnemies()
+    {
+        if (stageMap == null || stageMap.EliteSpawnTimes == null)
+            return;
+
+        while (nextEliteSpawnIndex < stageMap.EliteSpawnTimes.Length
+            && SurvivedTime() >= stageMap.EliteSpawnTimes[nextEliteSpawnIndex])
+        {
+            if (!SpawnStageEnemy(stageMap.EliteEnemyType, true))
+                return;
+
+            nextEliteSpawnIndex++;
+        }
+    }
+
+    private bool SpawnStageEnemy(PoolType type, bool isElite)
+    {
+        if (GameRoot.Instance?.Pool == null)
+            return false;
+
+        var go = GameRoot.Instance.Pool.Spawn(type, GetCameraEdgePosition(), Quaternion.identity);
+        if (go == null)
+            return false;
+
+        AliveCount++;
+        go.GetComponent<EnemyLifeHook>()?.Bind(this);
+
+        if (isElite)
+        {
+            EliteEnemy elite = go.GetComponent<EliteEnemy>();
+            if (elite == null)
+                elite = go.AddComponent<EliteEnemy>();
+
+            elite.Configure(stageMap.OccupationDurationSeconds);
+        }
+
+        return true;
+    }
+
+    private WavePhaseData[] ActivePhases
+    {
+        get
+        {
+            if (stageMap != null && stageMap.Phases != null && stageMap.Phases.Length > 0)
+                return stageMap.Phases;
+
+            return phases;
+        }
+    }
+
+    private float ActiveSpawnMargin => stageMap != null ? stageMap.SpawnMargin : spawnMargin;
+    private bool IsValidIndex(int idx) => ActivePhases != null && idx >= 0 && idx < ActivePhases.Length;
     private float SurvivedTime() => GameRoot.Instance?.Game.SurvivedTime ?? 0f;
     private bool IsGameOver() => GameRoot.Instance?.Game.IsGameOver ?? false;
 }

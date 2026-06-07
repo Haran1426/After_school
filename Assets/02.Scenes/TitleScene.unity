@@ -899,7 +899,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 51344125}
         m_TargetAssemblyTypeName: Scenes, Assembly-CSharp
-        m_MethodName: LoadRoom
+        m_MethodName: LoadCharacterSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

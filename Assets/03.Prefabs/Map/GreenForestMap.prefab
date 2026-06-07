@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 100001}
   - component: {fileID: 100002}
   - component: {fileID: 100003}
-  - component: {fileID: 100004}
-  m_Layer: 3
-  m_Name: SquirrelCharacter
+  m_Layer: 0
+  m_Name: GreenForestMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,13 +27,77 @@ Transform:
   m_GameObject: {fileID: 100000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.385, y: 0.385, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalScale: {x: 2.8, y: 2.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &100002
+--- !u!114 &100002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58801cc2c58b46ee9881e588f0527be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageName: Green Forest
+  description: "\uAC00\uC7A5 \uAE30\uBCF8\uC774 \uB418\uB294 \uBC1D\uC740 \uC232 \uC2A4\uD14C\uC774\uC9C0"
+  durationSeconds: 600
+  mapType: 0
+  boundsMin: {x: -20, y: -12}
+  boundsMax: {x: 20, y: 12}
+  spawnMargin: 1
+  eliteEnemyType: 0
+  eliteSpawnTimes:
+  - 120
+  - 480
+  bossType: 0
+  occupationDurationSeconds: 10
+  phases:
+  - startTime: 0
+    label: Green Forest 0-2m
+    spawnInterval: 1.2
+    spawnPerTick: 1
+    maxAlive: 18
+    enemies:
+    - type: 0
+      weight: 10
+  - startTime: 120
+    label: Green Forest 2-5m
+    spawnInterval: 0.95
+    spawnPerTick: 2
+    maxAlive: 28
+    enemies:
+    - type: 0
+      weight: 8
+    - type: 1
+      weight: 2
+  - startTime: 300
+    label: Green Forest 5-8m
+    spawnInterval: 0.75
+    spawnPerTick: 3
+    maxAlive: 42
+    enemies:
+    - type: 0
+      weight: 5
+    - type: 1
+      weight: 5
+  - startTime: 480
+    label: Green Forest 8-10m
+    spawnInterval: 0.55
+    spawnPerTick: 4
+    maxAlive: 60
+    enemies:
+    - type: 0
+      weight: 6
+    - type: 1
+      weight: 4
+--- !u!212 &100003
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,50 +140,15 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -2311659948842064771, guid: d3639170cc0f55e42ba1574cde59a2bd, type: 3}
-  m_Color: {r: 0.76, g: 0.48, b: 0.24, a: 1}
+  m_SortingOrder: -100
+  m_Sprite: {fileID: -5895859946145465761, guid: 827267ab530347d47b5e3e710b34b1c4, type: 3}
+  m_Color: {r: 0.45, g: 0.8, b: 0.38, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.06375, y: 1.125}
+  m_Size: {x: 15.35, y: 7.82}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &100003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b2ce59c902c4f04b9ea02516b7fd321, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 100002}
-  idleFrames:
-  - {fileID: -2311659948842064771, guid: d3639170cc0f55e42ba1574cde59a2bd, type: 3}
-  walkFrames:
-  - {fileID: -2311659948842064771, guid: d3639170cc0f55e42ba1574cde59a2bd, type: 3}
-  idleFps: 6
-  walkFps: 10
-  flipWithHorizontalInput: 1
---- !u!114 &100004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9183143917e14dc28f4e4b55ebae93d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interval: 0.55
-  range: 7
-  damage: 1.4

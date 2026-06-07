@@ -13,6 +13,10 @@ public class ScenesLoad : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene");
     }
+    public void LoadCharacterSelect()
+    {
+        SceneManager.LoadScene("CharacterSelectScene");
+    }
     public void LoadCoice()
     {
         SceneManager.LoadScene("CoiceScene");
