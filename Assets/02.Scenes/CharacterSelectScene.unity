@@ -324,6 +324,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSceneName: GameScene
   selectedText: {fileID: 0}
+  catPreview: {fileID: 2587706737540376869, guid: 76da2215d40fb99469517ba3b011f621, type: 3}
+  bunnyPreview: {fileID: -6721669349508387413, guid: 4b01b1505631a9143b47687e595b1db8, type: 3}
+  squirrelPreview: {fileID: 7427377871762005289, guid: e05c362747141a74398ca63a103dac05, type: 3}
 --- !u!1 &300000
 GameObject:
   m_ObjectHideFlags: 0

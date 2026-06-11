@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 04bc910c08e67f24a89a5ac47bf4dae8
+guid: 2c7acb8518e204049b476a8bb20082c2
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,9 +123,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: cat
+  - name: Ram
     originalName: 
-    pivot: {x: 0.52, y: -0.03448276}
+    pivot: {x: 0.5, y: -0.03448276}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -133,9 +133,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 25
+      width: 24
       height: 29
-    spriteID: de4f92cd5a3cbfb4d93103397c67290d
+    spriteID: 4bdf7a034ebf85f478871706e99be372
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -143,30 +143,30 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 3}
+    uvTransform: {x: 0, y: 3}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
     uuid:
-      value0: 696029510
+      value0: 696030990
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: cat
+    name: Ram
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: cat
+    - name: Ram
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 3
+        x: 0
         y: 0
-        width: 26
-        height: 31
-      spriteId: de4f92cd5a3cbfb4d93103397c67290d
+        width: 32
+        height: 32
+      spriteId: 4bdf7a034ebf85f478871706e99be372
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -186,4 +186,4 @@ ScriptedImporter:
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 32, y: 32}
-  previousTextureSize: {x: 64, y: 64}
+  previousTextureSize: {x: 32, y: 64}

@@ -78,12 +78,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2311659948842064771, guid: d3639170cc0f55e42ba1574cde59a2bd, type: 3}
-  m_Color: {r: 0.76, g: 0.48, b: 0.24, a: 1}
+  m_Sprite: {fileID: 7427377871762005289, guid: e05c362747141a74398ca63a103dac05, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.06375, y: 1.125}
+  m_Size: {x: 2.42, y: 2.92}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -103,9 +103,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 100002}
   idleFrames:
-  - {fileID: -2311659948842064771, guid: d3639170cc0f55e42ba1574cde59a2bd, type: 3}
+  - {fileID: 7427377871762005289, guid: e05c362747141a74398ca63a103dac05, type: 3}
+  - {fileID: 7402683209865271951, guid: e05c362747141a74398ca63a103dac05, type: 3}
+  - {fileID: 3795537118871595185, guid: e05c362747141a74398ca63a103dac05, type: 3}
+  - {fileID: 2775080870253258889, guid: e05c362747141a74398ca63a103dac05, type: 3}
+  - {fileID: 7500790406075710036, guid: e05c362747141a74398ca63a103dac05, type: 3}
+  - {fileID: -6790374655882762084, guid: e05c362747141a74398ca63a103dac05, type: 3}
+  - {fileID: 4334542971036530696, guid: e05c362747141a74398ca63a103dac05, type: 3}
   walkFrames:
-  - {fileID: -2311659948842064771, guid: d3639170cc0f55e42ba1574cde59a2bd, type: 3}
+  - {fileID: 4466743103205506695, guid: cc6240a137dd3ff41a9ba737c9ea384f, type: 3}
+  - {fileID: -7217840773807936255, guid: cc6240a137dd3ff41a9ba737c9ea384f, type: 3}
+  - {fileID: -7179116010350363080, guid: cc6240a137dd3ff41a9ba737c9ea384f, type: 3}
+  - {fileID: 5165460852444253899, guid: cc6240a137dd3ff41a9ba737c9ea384f, type: 3}
+  - {fileID: -7371147678526481307, guid: cc6240a137dd3ff41a9ba737c9ea384f, type: 3}
+  - {fileID: -3992569891535371876, guid: cc6240a137dd3ff41a9ba737c9ea384f, type: 3}
+  - {fileID: -5543988782438858123, guid: cc6240a137dd3ff41a9ba737c9ea384f, type: 3}
   idleFps: 6
   walkFps: 10
   flipWithHorizontalInput: 1

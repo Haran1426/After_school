@@ -1083,6 +1083,8 @@ MonoBehaviour:
     spawnInterval: 1.2
     spawnPerTick: 1
     maxAlive: 18
+    enterBurstCount: 0
+    enterBurstType: 0
     enemies:
     - type: 0
       weight: 10
@@ -1091,6 +1093,8 @@ MonoBehaviour:
     spawnInterval: 0.95
     spawnPerTick: 2
     maxAlive: 28
+    enterBurstCount: 0
+    enterBurstType: 0
     enemies:
     - type: 0
       weight: 8
@@ -1101,6 +1105,8 @@ MonoBehaviour:
     spawnInterval: 0.75
     spawnPerTick: 3
     maxAlive: 42
+    enterBurstCount: 0
+    enterBurstType: 0
     enemies:
     - type: 0
       weight: 5
@@ -1111,6 +1117,8 @@ MonoBehaviour:
     spawnInterval: 0.55
     spawnPerTick: 4
     maxAlive: 60
+    enterBurstCount: 0
+    enterBurstType: 0
     enemies:
     - type: 0
       weight: 6
@@ -3899,6 +3907,8 @@ MonoBehaviour:
     spawnInterval: 0.5
     spawnPerTick: 10
     maxAlive: 20
+    enterBurstCount: 0
+    enterBurstType: 0
     enemies:
     - type: 0
       weight: 50
@@ -3909,6 +3919,8 @@ MonoBehaviour:
     spawnInterval: 1.5
     spawnPerTick: 8
     maxAlive: 10
+    enterBurstCount: 0
+    enterBurstType: 0
     enemies:
     - type: 0
       weight: 70
@@ -7766,8 +7778,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ff9839e040f9f4580269ef16827f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resultText: {fileID: 0}
   timeText: {fileID: 1627709823}
   killText: {fileID: 1578481893}
+  summaryText: {fileID: 0}
   restartButton: {fileID: 861562353}
   titleButton: {fileID: 793371711}
 --- !u!1 &1962623175
@@ -8824,6 +8838,9 @@ MonoBehaviour:
   maxHp: 100
   currentHp: 0
   Hpbar: {fileID: 1142870518}
+  invulnerableSeconds: 0.65
+  hitFlashFps: 14
+  hitFlashColor: {r: 1, g: 0.62, b: 0.62, a: 1}
   power: 1
 --- !u!114 &2135148483
 MonoBehaviour:

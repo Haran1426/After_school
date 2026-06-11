@@ -7,6 +7,9 @@ public sealed class CharacterSelectSceneUI : MonoBehaviour
 {
     [SerializeField] private string gameSceneName = "GameScene";
     [SerializeField] private TextMeshProUGUI selectedText;
+    [SerializeField] private Sprite catPreview;
+    [SerializeField] private Sprite bunnyPreview;
+    [SerializeField] private Sprite squirrelPreview;
 
     private void Start()
     {
@@ -58,7 +61,7 @@ public sealed class CharacterSelectSceneUI : MonoBehaviour
         panelRect.anchorMax = new Vector2(0.5f, 0.5f);
         panelRect.pivot = new Vector2(0.5f, 0.5f);
         panelRect.anchoredPosition = Vector2.zero;
-        panelRect.sizeDelta = new Vector2(1040f, 520f);
+        panelRect.sizeDelta = new Vector2(1040f, 580f);
 
         Image panelImage = panel.AddComponent<Image>();
         panelImage.color = new Color(0.08f, 0.14f, 0.1f, 0.92f);
@@ -77,7 +80,7 @@ public sealed class CharacterSelectSceneUI : MonoBehaviour
 
         GameObject row = CreateUiObject("CharacterRow", panel.transform);
         RectTransform rowRect = row.AddComponent<RectTransform>();
-        rowRect.sizeDelta = new Vector2(0f, 250f);
+        rowRect.sizeDelta = new Vector2(0f, 300f);
 
         HorizontalLayoutGroup horizontal = row.AddComponent<HorizontalLayoutGroup>();
         horizontal.spacing = 26f;
@@ -87,9 +90,9 @@ public sealed class CharacterSelectSceneUI : MonoBehaviour
         horizontal.childForceExpandWidth = false;
         horizontal.childForceExpandHeight = false;
 
-        CreateCharacterCard(row.transform, "고양이", "균형형 / 속도 5.5 / 체력 10\n발톱 베기 / 10% 회피", new Color(0.95f, 0.72f, 0.42f, 1f), SelectCat);
-        CreateCharacterCard(row.transform, "토끼", "회피형 / 속도 6.2 / 체력 8\n점프 충격파 / 22% 회피", new Color(0.92f, 0.82f, 1f, 1f), SelectBunny);
-        CreateCharacterCard(row.transform, "다람쥐", "기술형 / 공격 1.1 / 체력 11\n도토리 탄환 / 구슬 흡수 +0.9", new Color(0.74f, 0.48f, 0.25f, 1f), SelectSquirrel);
+        CreateCharacterCard(row.transform, "고양이", "균형형 / 속도 5.5 / 체력 10\n발톱 베기 / 10% 회피", catPreview, new Color(0.95f, 0.72f, 0.42f, 1f), SelectCat);
+        CreateCharacterCard(row.transform, "토끼", "회피형 / 속도 6.2 / 체력 8\n점프 충격파 / 22% 회피", bunnyPreview, new Color(0.92f, 0.82f, 1f, 1f), SelectBunny);
+        CreateCharacterCard(row.transform, "다람쥐", "기술형 / 공격 1.1 / 체력 11\n도토리 탄환 / 구슬 흡수 +0.9", squirrelPreview, new Color(0.74f, 0.48f, 0.25f, 1f), SelectSquirrel);
 
         GameObject bottomRow = CreateUiObject("BottomRow", panel.transform);
         RectTransform bottomRect = bottomRow.AddComponent<RectTransform>();
@@ -107,11 +110,11 @@ public sealed class CharacterSelectSceneUI : MonoBehaviour
         CreateButton(bottomRow.transform, "게임 시작", new Color(0.25f, 0.62f, 0.28f, 1f), StartGame);
     }
 
-    private void CreateCharacterCard(Transform parent, string title, string description, Color color, UnityEngine.Events.UnityAction onClick)
+    private void CreateCharacterCard(Transform parent, string title, string description, Sprite preview, Color color, UnityEngine.Events.UnityAction onClick)
     {
         GameObject card = CreateUiObject(title + "Card", parent);
         RectTransform rect = card.AddComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(270f, 230f);
+        rect.sizeDelta = new Vector2(270f, 280f);
 
         Image image = card.AddComponent<Image>();
         image.color = color;
@@ -130,6 +133,16 @@ public sealed class CharacterSelectSceneUI : MonoBehaviour
         layout.childForceExpandHeight = false;
 
         CreateLabel(card.transform, title, 32f, FontStyles.Bold, Color.white);
+
+        GameObject previewObject = CreateUiObject(title + "Preview", card.transform);
+        Image previewImage = previewObject.AddComponent<Image>();
+        previewImage.sprite = preview;
+        previewImage.preserveAspect = true;
+        previewImage.raycastTarget = false;
+
+        LayoutElement previewLayout = previewObject.AddComponent<LayoutElement>();
+        previewLayout.preferredHeight = 100f;
+
         CreateLabel(card.transform, description, 19f, FontStyles.Normal, new Color(0.12f, 0.12f, 0.12f, 1f));
     }
 
