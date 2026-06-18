@@ -3485,7 +3485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1084581775
 Transform:
   m_ObjectHideFlags: 0
@@ -5939,7 +5939,7 @@ MonoBehaviour:
   maxLevel: 8
   radius: 2.5
   rotateSpeed: 120
-  weaponCount: 5
+  weaponCount: 0
   bladePrefab: {fileID: 3265451754288868254, guid: d0e3f009e3f746c4b93d83ba7095c048, type: 3}
 --- !u!1 &1913896474
 GameObject:
