@@ -1,4 +1,4 @@
-using UnityEngine;
+癤퓎sing UnityEngine;
 
 public class DamageTextSpawner : MonoBehaviour
 {
@@ -9,7 +9,7 @@ public class DamageTextSpawner : MonoBehaviour
         Instance = this;
     }
 
-    public void Spawn(float damage, Vector3 position) // 적이 맞았을 때 데미지 텍스트 생성
+    public void Spawn(float damage, Vector3 position)
     {
         var obj = GameRoot.Instance.Pool.Spawn(
             PoolType.DamageText,
@@ -21,5 +21,19 @@ public class DamageTextSpawner : MonoBehaviour
 
         var damageText = obj.GetComponent<DamageText>();
         damageText.Init(damage);
+    }
+
+    public void SpawnText(string message, Vector3 position, Color color)
+    {
+        var obj = GameRoot.Instance.Pool.Spawn(
+            PoolType.DamageText,
+            position,
+            Quaternion.identity
+        );
+
+        if (obj == null) return;
+
+        var damageText = obj.GetComponent<DamageText>();
+        damageText.InitText(message, color);
     }
 }

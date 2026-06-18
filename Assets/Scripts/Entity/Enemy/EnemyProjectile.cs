@@ -9,11 +9,14 @@ public class EnemyProjectile : MonoBehaviour
 
     Vector3 dir;
     float timer;
+    Transform player;
+    Entity playerEntity;
 
     public void Fire(Vector3 direction)
     {
         dir = direction.normalized;
         timer = 0f;
+        CachePlayer();
     }
 
     void Update()
@@ -32,17 +35,32 @@ public class EnemyProjectile : MonoBehaviour
 
     void CheckHitPlayer()
     {
-        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+            CachePlayer();
+
         if (player == null) return;
 
-        float dist = Vector2.Distance(transform.position, player.transform.position);
+        float dist = Vector2.Distance(transform.position, player.position);
         if (dist > hitRadius)
             return;
 
-        var entity = player.GetComponent<Entity>();
-        if (entity != null)
-            entity.TakeDamage(damage);
+        if (playerEntity != null)
+            playerEntity.TakeDamage(damage);
 
         Destroy(gameObject);
+    }
+
+    private void CachePlayer()
+    {
+        GameObject target = GameObject.FindGameObjectWithTag("Player");
+        if (target == null)
+        {
+            player = null;
+            playerEntity = null;
+            return;
+        }
+
+        player = target.transform;
+        playerEntity = target.GetComponent<Entity>();
     }
 }

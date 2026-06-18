@@ -12,6 +12,11 @@ public class PlayerExp : MonoBehaviour
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private LevelUpUI levelUpUI;
 
+    private void Awake()
+    {
+        ConfigureExpBar();
+    }
+
     private void Start()
     {
         UpdateUI();
@@ -20,6 +25,7 @@ public class PlayerExp : MonoBehaviour
     public void AddExp(int value)
     {
         currentExp += value;
+        GameRoot.Instance.Audio.PlaySfx(AudioCue.ExpPickup);
 
         while (currentExp >= requiredExp)
             LevelUp();
@@ -32,6 +38,7 @@ public class PlayerExp : MonoBehaviour
         currentExp -= requiredExp;
         level++;
         requiredExp = CalculateNextExp();
+        GameRoot.Instance.Audio.PlaySfx(AudioCue.LevelUp);
         levelUpUI?.Show();
     }
 
@@ -43,9 +50,23 @@ public class PlayerExp : MonoBehaviour
     private void UpdateUI()
     {
         if (expBar != null)
-            expBar.fillAmount = (float)currentExp / requiredExp;
+        {
+            ConfigureExpBar();
+            expBar.fillAmount = requiredExp > 0
+                ? Mathf.Clamp01((float)currentExp / requiredExp)
+                : 0f;
+        }
 
         if (levelText != null)
             levelText.text = "Lv" + level;
+    }
+
+    private void ConfigureExpBar()
+    {
+        if (expBar == null) return;
+
+        expBar.type = Image.Type.Filled;
+        expBar.fillMethod = Image.FillMethod.Horizontal;
+        expBar.fillOrigin = (int)Image.OriginHorizontal.Left;
     }
 }

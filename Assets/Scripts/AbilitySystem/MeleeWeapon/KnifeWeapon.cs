@@ -15,7 +15,6 @@ public class KnifeWeapon : WeaponBase
     }
     private void Update()
     {
-        Debug.Log(owner);
         if (owner == null) return;
         if (Time.time < nextFireTime) return;
 
@@ -54,7 +53,10 @@ public class KnifeWeapon : WeaponBase
         if (go == null) return;
 
         var knife = go.GetComponent<Knife>();
+        if (knife == null) return;
+
         knife.Init(target.transform.position);
+        GameRoot.Instance.Audio.PlaySfx(AudioCue.KnifeThrow);
     }
 
     protected override void OnLevelUp()

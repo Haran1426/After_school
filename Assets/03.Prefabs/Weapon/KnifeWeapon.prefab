@@ -46,6 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier:
   level: 0
   maxLevel: 8
-  knifePrefab: {fileID: 0}
+  knifePrefab: {fileID: 542572246617089481, guid: d839c70621510eb40b4787d031a04a2f, type: 3}
   fireInterval: 0.6
   range: 8

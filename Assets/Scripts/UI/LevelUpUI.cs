@@ -8,33 +8,50 @@ public class LevelUpUI : MonoBehaviour
 
     private PlayerWeaponManager weaponManager;
     private Player player;
+    private PlayerMovement playerMovement;
 
     private void Awake()
     {
         weaponManager = FindAnyObjectByType<PlayerWeaponManager>();
         player = FindAnyObjectByType<Player>();
+        playerMovement = FindAnyObjectByType<PlayerMovement>();
     }
 
     public void Show()
     {
-        gameObject.SetActive(true);
-        Time.timeScale = 0f;
-
         // Awake 이후에 생성된 경우를 대비해 재탐색
         if (weaponManager == null) weaponManager = FindAnyObjectByType<PlayerWeaponManager>();
         if (player == null) player = FindAnyObjectByType<Player>();
+        if (playerMovement == null) playerMovement = FindAnyObjectByType<PlayerMovement>();
 
-        var selected = GetRandomRewards(3);
+        if (slots == null || slots.Count == 0)
+            return;
+
+        var selected = GetRandomRewards(slots.Count);
+        if (selected.Count == 0)
+            return;
+
+        gameObject.SetActive(true);
+        Time.timeScale = 0f;
 
         for (int i = 0; i < slots.Count; i++)
-            slots[i].Setup(selected[i], OnRewardSelected);
+        {
+            if (i < selected.Count)
+                slots[i].Setup(selected[i], OnRewardSelected);
+            else
+                slots[i].Hide();
+        }
     }
 
     private void OnRewardSelected(RewardData data)
     {
+        if (data == null) return;
+
+        GameRoot.Instance.Audio.PlaySfx(AudioCue.RewardSelect);
+
         if (data.rewardType == RewardType.Weapon)
         {
-            weaponManager.AddOrUpgradeWeapon(data.weaponPrefab);
+            weaponManager?.AddOrUpgradeWeapon(data.weaponPrefab);
         }
         else if (data.rewardType == RewardType.Stat)
         {
@@ -47,31 +64,58 @@ public class LevelUpUI : MonoBehaviour
 
     private void ApplyStatReward(RewardData data)
     {
-        if (player == null) return;
-
         switch (data.statRewardType)
         {
             case StatRewardType.AddMaxHp:
+                if (player == null) return;
+
                 player.maxHp += data.value;
                 player.currentHp += data.value;
                 if (player.currentHp > player.maxHp) player.currentHp = player.maxHp;
                 break;
 
             case StatRewardType.Heal:
+                if (player == null) return;
+
                 player.currentHp += data.value;
                 if (player.currentHp > player.maxHp) player.currentHp = player.maxHp;
                 break;
 
             case StatRewardType.Power:
+                if (player == null) return;
+
                 player.power += data.value;
+                break;
+
+            case StatRewardType.MoveSpeed:
+                if (playerMovement == null)
+                    playerMovement = FindAnyObjectByType<PlayerMovement>();
+
+                playerMovement?.AddMoveSpeed(data.value);
+                break;
+
+            case StatRewardType.ExpMagnet:
+                if (player == null)
+                    player = FindAnyObjectByType<Player>();
+
+                player?.AddExpMagnetRange(data.value);
                 break;
         }
     }
 
     private List<RewardData> GetRandomRewards(int count)
     {
-        List<RewardData> copy = new List<RewardData>(rewardPool);
+        List<RewardData> copy = new List<RewardData>();
         List<RewardData> result = new List<RewardData>();
+
+        if (rewardPool == null)
+            return result;
+
+        foreach (var reward in rewardPool)
+        {
+            if (IsValidReward(reward))
+                copy.Add(reward);
+        }
 
         count = Mathf.Min(count, copy.Count);
 
@@ -83,5 +127,13 @@ public class LevelUpUI : MonoBehaviour
         }
 
         return result;
+    }
+
+    private bool IsValidReward(RewardData reward)
+    {
+        return reward != null
+            && !string.IsNullOrWhiteSpace(reward.rewardName)
+            && !string.IsNullOrWhiteSpace(reward.description)
+            && (reward.rewardType != RewardType.Weapon || reward.weaponPrefab != null);
     }
 }
