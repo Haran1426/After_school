@@ -77,7 +77,6 @@ public abstract class EnemyBase : Entity
         if (IsDead) return;
         IsDead = true;
 
-        DeathBurstEffect.Spawn(transform.position);
         DropExp();
         GameRoot.Instance.Game.RegisterKill();
 
