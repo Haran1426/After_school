@@ -79,9 +79,18 @@ public abstract class EnemyBase : Entity
         if (IsDead)
             return;
 
+        Vector3 hitDir = player != null
+            ? (transform.position - player.position).normalized
+            : (Vector3)Random.insideUnitCircle.normalized;
+
+        if (hitDir.sqrMagnitude <= 0.0001f)
+            hitDir = Random.insideUnitCircle.normalized;
+
         currentHp -= damage;
 
-        DamageTextSpawner.Instance.Spawn(damage, transform.position);
+        DamageTextSpawner.Instance?.Spawn(damage, transform.position);
+        GameJuiceFX.HitSpark(transform.position, hitDir, new Color(1f, 0.88f, 0.28f, 0.95f), currentHp <= 0f ? 14 : 7);
+        GameJuiceFX.Shake(currentHp <= 0f ? 0.12f : 0.055f, currentHp <= 0f ? 0.08f : 0.035f);
 
         if (currentHp <= 0f)
         {
@@ -93,14 +102,7 @@ public abstract class EnemyBase : Entity
         GameRoot.Instance.Audio.PlaySfx(AudioCue.EnemyHit);
         stunEndTime = Time.time + hitStunSeconds;
 
-        Vector3 dir = player != null
-            ? (transform.position - player.position).normalized
-            : -transform.up;
-
-        if (dir.sqrMagnitude <= 0.0001f)
-            dir = UnityEngine.Random.insideUnitCircle.normalized;
-
-        knockbackDir = dir;
+        knockbackDir = hitDir;
         knockbackEndTime = Time.time + knockbackSeconds;
         isKnockback = true;
     }

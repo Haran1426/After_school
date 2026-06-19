@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rewardName: "\uC57C\uC0DD \uBC1C\uAC78\uC74C"
   description: "\uC774\uB3D9 \uC18D\uB3C4\uAC00 0.4 \uC99D\uAC00\uD569\uB2C8\uB2E4."
-  icon: {fileID: 21300000, guid: f9be5709568fc4e4eba03128dfdde60c, type: 3}
+  icon: {fileID: 21300000, guid: b0b0709ebbe54d54afdc78fc196a4c66, type: 3}
   background: {fileID: 0}
   rewardType: 0
   value: 0.4

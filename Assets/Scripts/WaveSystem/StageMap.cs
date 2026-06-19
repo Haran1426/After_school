@@ -31,6 +31,7 @@ public sealed class StageMap : MonoBehaviour
     [SerializeField, Min(0.1f)] private float occupationDurationSeconds = 10f;
 
     [Header("Waves")]
+    [SerializeField] private WaveProfile waveProfile;
     [SerializeField] private WavePhaseData[] phases;
 
     public string StageName => stageName;
@@ -44,7 +45,10 @@ public sealed class StageMap : MonoBehaviour
     public float[] EliteSpawnTimes => eliteSpawnTimes;
     public PoolType BossType => bossType;
     public float OccupationDurationSeconds => occupationDurationSeconds;
-    public WavePhaseData[] Phases => phases;
+    public WaveProfile WaveProfile => waveProfile;
+    public WavePhaseData[] Phases => waveProfile != null && waveProfile.Phases != null && waveProfile.Phases.Length > 0
+        ? waveProfile.Phases
+        : phases;
     public bool UsesMovementBounds => mapType == StageMapType.Bounded;
 
     public bool HasValidBounds()

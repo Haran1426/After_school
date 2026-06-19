@@ -33,6 +33,7 @@
 
 # Visual Studio cache directory
 .vs/
+.dotnet-home/
 
 # Gradle cache directory
 .gradle/

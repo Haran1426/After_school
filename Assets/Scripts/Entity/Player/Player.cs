@@ -15,6 +15,8 @@ public class Player : Entity
     private Color[] baseColors;
     private float invulnerableUntil;
     private float dodgeChance;
+    private float displayedHp;
+    private bool hpDisplayInitialized;
 
     protected override void Awake()
     {
@@ -33,7 +35,16 @@ public class Player : Entity
         if (Hpbar != null)
         {
             Hpbar.maxValue = maxHp;
-            Hpbar.value = currentHp;
+
+            if (!hpDisplayInitialized)
+            {
+                displayedHp = currentHp;
+                hpDisplayInitialized = true;
+            }
+
+            float speed = currentHp < displayedHp ? maxHp * 1.8f : maxHp * 5f;
+            displayedHp = Mathf.MoveTowards(displayedHp, currentHp, speed * Time.deltaTime);
+            Hpbar.value = displayedHp;
         }
     }
 
@@ -46,6 +57,7 @@ public class Player : Entity
         {
             invulnerableUntil = Time.time + invulnerableSeconds * 0.45f;
             DamageTextSpawner.Instance?.SpawnText("회피", transform.position + Vector3.up * 0.45f, new Color(0.72f, 1f, 0.55f, 1f));
+            GameJuiceFX.HitSpark(transform.position, Vector3.up, new Color(0.56f, 1f, 0.62f, 0.9f), 5);
             GameRoot.Instance?.Audio?.PlaySfx(AudioCue.ExpPickup);
             return;
         }
@@ -53,6 +65,8 @@ public class Player : Entity
         base.TakeDamage(damage);
 
         invulnerableUntil = Time.time + invulnerableSeconds;
+        GameJuiceFX.HitSpark(transform.position, Vector3.up, new Color(1f, 0.25f, 0.18f, 0.88f), 9);
+        GameJuiceFX.Shake(0.14f, 0.09f);
         GameRoot.Instance?.Audio?.PlaySfx(AudioCue.PlayerHit);
     }
 

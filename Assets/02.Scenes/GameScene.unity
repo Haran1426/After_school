@@ -6060,6 +6060,7 @@ GameObject:
   - component: {fileID: 1627709825}
   - component: {fileID: 1627709824}
   - component: {fileID: 1627709823}
+  - component: {fileID: 1627709826}
   m_Layer: 0
   m_Name: TimeText
   m_TagString: Untagged
@@ -6067,6 +6068,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1627709826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627709822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36f5fd78c954c34a9f1c2f10f4cc4dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeText: {fileID: 1627709823}
+  label: "\uC0DD\uC874 \uC2DC\uAC04"
 --- !u!114 &1627709823
 MonoBehaviour:
   m_ObjectHideFlags: 0

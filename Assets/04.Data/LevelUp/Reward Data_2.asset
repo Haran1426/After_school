@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe01c6168bdec654c8fe830c48eaebd8, type: 3}
   m_Name: Reward Data_2
   m_EditorClassIdentifier: 
-  rewardName: "\uD68C\uBCF5"
-  description: "HP\uC758 \uCD5C\uB300\uCE58\uAC00 20 \uC99D\uAC00\uD569\uB2C8\uB2E4."
-  icon: {fileID: 21300000, guid: 9fb2a70db6aeb2f44893af608631cbe8, type: 3}
+  rewardName: "\uCCB4\uB825 \uAC15\uD654"
+  description: "\uCD5C\uB300 HP\uAC00 20 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  icon: {fileID: 21300000, guid: 8a4e2d9f6b6b4f98a9559b0e7de315d1, type: 3}
   background: {fileID: 0}
+  rewardType: 0
   value: 20
+  statRewardType: 0
+  weaponPrefab: {fileID: 0}

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Reward Data_9
   m_EditorClassIdentifier: 
   rewardName: "\uB098\uBB47\uC78E \uD68C\uC624\uB9AC"
-  description: "\uC8FC\uBCC0\uC758 \uC801\uC744 \uC8FC\uAE30\uC801\uC73C\uB85C \uBCA0\uB294 \uB098\uBB47\uC78E \uD68C\uC624\uB9AC\uB97C \uD68D\uB4DD\uD569\uB2C8\uB2E4."
-  icon: {fileID: 21300000, guid: f9be5709568fc4e4eba03128dfdde60c, type: 3}
+  description: "\uC8FC\uBCC0\uC758 \uC801\uC744 \uBCA0\uB294 \uD68C\uC804 \uC2A4\uD0AC\uC744 \uD68D\uB4DD\uD569\uB2C8\uB2E4."
+  icon: {fileID: 21300000, guid: 5334f57d334c414ca5862ca08b3f74a6, type: 3}
   background: {fileID: 0}
   rewardType: 1
   value: 1

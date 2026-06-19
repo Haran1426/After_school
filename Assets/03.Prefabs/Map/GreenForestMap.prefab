@@ -59,6 +59,7 @@ MonoBehaviour:
   - 480
   bossType: 0
   occupationDurationSeconds: 10
+  waveProfile: {fileID: 0}
   phases:
   - startTime: 0
     label: Green Forest 0-2m

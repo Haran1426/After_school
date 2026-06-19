@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rewardName: "\uD68C\uBCF5"
   description: "HP\uB97C 50 \uD68C\uBCF5\uD569\uB2C8\uB2E4"
-  icon: {fileID: 21300000, guid: 9fb2a70db6aeb2f44893af608631cbe8, type: 3}
+  icon: {fileID: 21300000, guid: 8a4e2d9f6b6b4f98a9559b0e7de315d1, type: 3}
   background: {fileID: 0}
   rewardType: 0
   value: 50
