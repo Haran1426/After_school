@@ -14,7 +14,7 @@ public sealed class CharacterSelectSceneUI : MonoBehaviour
     private void Start()
     {
         BuildMenu();
-        Select(CharacterSelection.SelectedCharacter);
+        SelectCat();
     }
 
     public void SelectCat()
@@ -48,22 +48,6 @@ public sealed class CharacterSelectSceneUI : MonoBehaviour
 
         if (selectedText != null)
             selectedText.text = "선택됨: " + displayName;
-    }
-
-    private void Select(PlayerCharacterType character)
-    {
-        switch (character)
-        {
-            case PlayerCharacterType.Bunny:
-                SelectBunny();
-                break;
-            case PlayerCharacterType.Squirrel:
-                SelectSquirrel();
-                break;
-            default:
-                SelectCat();
-                break;
-        }
     }
 
     private void BuildMenu()
