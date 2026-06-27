@@ -116,7 +116,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Damege
+  m_text: Damage
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1a6fad9fab0ea1d488d314faffd65566, type: 2}
   m_sharedMaterial: {fileID: -8219882241909085248, guid: 1a6fad9fab0ea1d488d314faffd65566, type: 2}
