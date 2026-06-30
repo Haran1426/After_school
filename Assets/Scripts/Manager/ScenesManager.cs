@@ -50,7 +50,7 @@ public class ScenesManager : MonoBehaviour
     {
         if (!sceneMap.TryGetValue(id, out var name))
         {
-            Debug.LogError("¾ÀÀÌ ¾ø½À´Ï´Ù: " + id);
+            Debug.LogError("ë“±ë¡ë˜ì§€ ì•Šì€ ì”¬ì…ë‹ˆë‹¤: " + id);
             return;
         }
 
