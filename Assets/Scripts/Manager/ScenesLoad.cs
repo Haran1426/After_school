@@ -15,9 +15,9 @@ public class ScenesLoad : MonoBehaviour
     {
         SceneManager.LoadScene("CharacterSelectScene");
     }
-    public void LoadCoice()
+    public void LoadChoice()
     {
-        SceneManager.LoadScene("CoiceScene");
+        SceneManager.LoadScene("ChoiceScene");
     }
 
     public void LoadTitle()
