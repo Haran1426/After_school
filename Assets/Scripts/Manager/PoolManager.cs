@@ -35,7 +35,7 @@ public sealed class PoolManager : ManagerBase
 
             if (pools.ContainsKey(s.type))
             {
-                Debug.LogError($"Duplicate PoolType: {s.type}");
+                Debug.LogError($"중복된 PoolType입니다: {s.type}");
                 continue;
             }
 
