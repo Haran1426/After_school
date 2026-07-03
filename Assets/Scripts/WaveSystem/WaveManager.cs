@@ -118,8 +118,6 @@ public sealed class WaveManager : MonoBehaviour, IAliveCounter
         RebuildWeightSum(activePhases[newIdx]);
         SpawnEnterBurst(activePhases[newIdx]);
         OnPhaseChanged?.Invoke(newIdx);
-
-        Debug.Log($"[WaveManager] → {activePhases[newIdx].label} (phase {newIdx}, {activePhases[newIdx].startTime}s)");
     }
 
     private void RebuildWeightSum(WavePhaseData phase)
